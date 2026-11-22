@@ -18,6 +18,7 @@
  --bg:light-dark(#f2f3ef,#091619);--card:light-dark(#fbfbf8,#0f2126);--card2:light-dark(#e8eae4,#0d1d21);
  --ink:light-dark(#10232a,#e6ebe8);--mut:light-dark(#53636a,#9aacaf);--line:light-dark(#d5d9d2,#22383e);
  --gold:light-dark(#8c6a20,#d8b563);--coral:#df5468;--aqua:light-dark(#0f6f78,#4cc6cf);--ok:light-dark(#1b7f49,#53d08e);--abyss:#0b2730}
+:root{--ease:cubic-bezier(.22,1,.36,1)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Figtree,system-ui,sans-serif;overflow-x:clip}
@@ -39,13 +40,14 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .nav a{position:relative;display:flex;align-items:center;padding:0 16px;height:100%;text-decoration:none;color:var(--mut);font:700 15px Cinzel,serif;letter-spacing:.06em;white-space:nowrap}
 .nav a:hover{color:var(--ink)}
 .nav a[aria-current=page]{color:var(--ink)}
-.nav a[aria-current=page]::after{content:"";position:absolute;left:50%;bottom:-5px;width:9px;height:9px;background:var(--gold);transform:translateX(-50%) rotate(45deg);border:2px solid var(--bg)}
+.nav{position:relative}.navind{position:absolute;bottom:-5px;left:0;width:9px;height:9px;background:var(--gold);border:2px solid var(--bg);transform:translateX(var(--x,0)) rotate(45deg);transition:transform .6s var(--ease),opacity .3s;pointer-events:none}
 .midi{position:relative;margin-left:auto;flex:none}
 .pill{display:flex;align-items:center;gap:8px;min-height:38px;padding:6px 12px;border:1px solid var(--line);border-radius:4px;background:transparent;cursor:pointer;font-weight:600;font-size:14px}
 .pill:hover{border-color:var(--mut)}
 .dot{width:8px;height:8px;border-radius:50%;background:#a3aaa9}.dot.on{background:#2fbf71;box-shadow:0 0 0 4px rgba(47,191,113,.2)}
 .pop{position:absolute;right:0;top:calc(100% + 10px);width:min(350px,calc(100vw - 32px));background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px;box-shadow:0 20px 44px rgba(5,25,30,.2);display:none}
-.pop.open{display:block}
+.pop{display:block;opacity:0;visibility:hidden;transform:translateY(-6px) scale(.97);transform-origin:top right;transition:opacity .3s var(--ease),transform .4s var(--ease),visibility 0s .4s}
+.pop.open{opacity:1;visibility:visible;transform:none;transition:opacity .3s var(--ease),transform .4s var(--ease)}
 .pop h3{font-size:22px;margin-bottom:6px}
 .pop hr{border:0;border-top:1px solid var(--line);margin:16px 0}
 @media(max-width:720px){.top .wrap{height:auto;flex-wrap:wrap;gap:0 12px;padding-top:10px}.nav{order:3;width:100%;height:46px;margin:0}.nav a{flex:1;justify-content:center;padding:0 4px;font-size:14px}.seg{gap:20px}.seg button{font-size:20px}.nav .lg{display:none}.pill .lg{display:none}}
@@ -63,7 +65,6 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 #liveName{font:600 34px/1.05 'Cormorant Garamond',Georgia,serif;margin:4px 0 4px;min-height:1.05em}
 #liveInfo{font-size:15px;color:#c8dada;min-height:1.5em}
 #liveInfo .ok{color:#7be3a9;font-weight:600}
-.hint{font-size:13px;color:#a8cfd1;margin:10px 0 0;line-height:1.45}
 .lrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .sbtn{min-height:38px;padding:6px 12px;border-radius:4px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#e9f2f1;cursor:pointer;font-weight:600;font-size:14px}
 .sbtn:hover{border-color:rgba(255,255,255,.5)}
@@ -84,7 +85,8 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .wk.step{background:#d6eef0}.bk.step{background:#0f5961}
 .step .lab{color:#0f6a73}.bk.step .lab{color:#bdf2f7}
 .wk.held,.bk.held{outline:3px solid #e2c27a;outline-offset:-3px}
-.hit{filter:brightness(.82)}
+.wk,.bk{transition:background .25s var(--ease),transform .12s var(--ease),filter .2s}
+.hit{filter:brightness(.82);transform:translateY(1.5px)}
 
 /* content */
 main{padding:30px 0 60px}
@@ -93,7 +95,7 @@ main{padding:30px 0 60px}
 .seg button{position:relative;padding:6px 0 12px;border:0;background:transparent;cursor:pointer;font:600 23px 'Cormorant Garamond',Georgia,serif;color:var(--mut);white-space:nowrap;min-height:44px}
 .seg button:hover{color:var(--ink)}
 .seg button[aria-selected=true]{color:var(--ink)}
-.seg button[aria-selected=true]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--gold)}
+.seg{position:relative}.segind{position:absolute;left:0;bottom:-1px;height:2px;width:var(--w,0);background:var(--gold);transform:translateX(var(--x,0));transition:transform .55s var(--ease),width .55s var(--ease)}
 .sub{display:none}.sub.act{display:block}
 .cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px}
 @media(max-width:860px){.cols{grid-template-columns:minmax(0,1fr);gap:32px}}
@@ -203,7 +205,24 @@ input[type=range]{width:150px;accent-color:var(--aqua)}
 .pn2{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:36px;padding-top:20px;border-top:1px solid var(--line)}
 .pn2 .btn:disabled{opacity:.4;cursor:default}
 footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color:var(--mut)}
-@media(prefers-reduced-motion:reduce){.wk,.bk{transition:none}}
+/* motion */
+.tipbtn{position:relative}
+.tipbtn::after{content:attr(data-tip);position:absolute;left:0;bottom:calc(100% + 10px);width:250px;padding:10px 12px;background:#f4f1e6;color:#10232a;font:500 13px/1.45 Figtree,sans-serif;text-align:left;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.28);opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity .25s var(--ease),transform .35s var(--ease);z-index:5}
+.tipbtn:hover::after,.tipbtn:focus-visible::after,.tipbtn.showtip::after{opacity:1;transform:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.chip,.btn,.sbtn,.pill,.pr,.demo,.dc,.md,.seg button,.nav a,.ml a{transition:background-color .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease),transform .2s var(--ease),filter .2s}
+.chip:active,.btn:active,.sbtn:active,.demo:active,.dc:active,.pill:active{transform:scale(.97)}
+.bubble{animation:rise 9s var(--ease) infinite}.bubble:nth-child(2){animation-duration:11s;animation-delay:-3s}.bubble:nth-child(3){animation-duration:13s;animation-delay:-6s}.bubble:nth-child(4){animation-duration:10s;animation-delay:-2s}.bubble:nth-child(5){animation-duration:12s;animation-delay:-8s}
+@keyframes rise{0%{transform:translateY(40px);opacity:0}20%{opacity:1}100%{transform:translateY(-120px);opacity:0}}
+.rays{animation:shimmer 10s ease-in-out infinite alternate}
+@keyframes shimmer{from{opacity:.55}to{opacity:1}}
+.deco{will-change:transform}
+.steps li.ok .sn{animation:pop .5s var(--ease)}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+#ana.open{animation:drop .5s var(--ease)}
+@keyframes drop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.bar span{transition:width .8s var(--ease)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -214,7 +233,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color
    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 5c-4 6-3 14 3 20M24 5c4 6 3 14-3 20"/><path d="M9 25h14M10 28h12"/><path d="M13 9v15M16 8v16M19 9v15" stroke-width="1.4"/><path d="M7 5h4M21 5h4"/></svg>
    <span>Remuria</span>
   </a>
-  <nav class="nav" aria-label="Menu utama">
+  <nav class="nav" aria-label="Menu utama"><span class="navind" aria-hidden="true"></span>
    <a href="#materi" data-view="materi">Materi</a>
    <a href="#teori-interval" data-view="teori">Jelajah</a>
    <a href="#aransemen" data-view="aransemen">Aransemen</a>
@@ -242,9 +261,9 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color
   <defs>
    <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfeff0" stop-opacity=".16"/><stop offset="1" stop-color="#cfeff0" stop-opacity="0"/></linearGradient>
      </defs>
-  <polygon points="980,0 1060,0 820,320 640,320" fill="url(#ray)"/><polygon points="1110,0 1150,0 1010,320 900,320" fill="url(#ray)"/><polygon points="1220,0 1300,0 1290,320 1140,320" fill="url(#ray)"/>
+  <g class="rays"><polygon points="980,0 1060,0 820,320 640,320" fill="url(#ray)"/><polygon points="1110,0 1150,0 1010,320 900,320" fill="url(#ray)"/><polygon points="1220,0 1300,0 1290,320 1140,320" fill="url(#ray)"/></g>
   <g fill="none" stroke="#d8b563" stroke-opacity=".12" stroke-width="2"><path d="M-40 330V210a95 95 0 0 1 190 0V330"/><path d="M190 330V210a95 95 0 0 1 190 0V330"/><path d="M420 330V210a95 95 0 0 1 190 0V330"/><path d="M650 330V210a95 95 0 0 1 190 0V330"/><path d="M880 330V210a95 95 0 0 1 190 0V330"/><path d="M1110 330V210a95 95 0 0 1 190 0V330"/><path d="M1340 330V210a95 95 0 0 1 190 0V330"/><path d="M161 330V200M189 330V200M151 200h48"/><path d="M391 330V200M419 330V200M381 200h48"/><path d="M621 330V200M649 330V200M611 200h48"/><path d="M851 330V200M879 330V200M841 200h48"/><path d="M1081 330V200M1109 330V200M1071 200h48"/><path d="M1311 330V200M1339 330V200M1301 200h48"/></g>
-  <g fill="none" stroke="#cfeff0" stroke-opacity=".22"><circle cx="1180" cy="96" r="4"/><circle cx="1196" cy="70" r="2.5"/><circle cx="1170" cy="44" r="3"/><circle cx="640" cy="120" r="2.5"/><circle cx="652" cy="92" r="1.8"/></g>
+  <g fill="none" stroke="#cfeff0" stroke-opacity=".22"><circle class="bubble" cx="1180" cy="96" r="4"/><circle class="bubble" cx="1196" cy="70" r="2.5"/><circle class="bubble" cx="1170" cy="44" r="3"/><circle class="bubble" cx="640" cy="120" r="2.5"/><circle class="bubble" cx="652" cy="92" r="1.8"/></g>
  </svg>
  <div class="wrap">
   <div aria-live="polite">
@@ -257,11 +276,11 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color
    <div id="liveName">–</div>
    <div id="liveInfo"></div>
    <div class="lrow">
-    <button class="sbtn" id="holdBtn" aria-pressed="false" aria-describedby="holdHint">Klik untuk tahan</button>
+    <button class="sbtn tipbtn" id="holdBtn" aria-pressed="false" aria-describedby="holdHint" data-tip="Tanpa keyboard MIDI? Nyalakan supaya beberapa tuts bisa ditekan bersamaan dengan klik.">Klik untuk tahan</button>
     <button class="sbtn" id="relBtn">Lepas semua</button>
     <button class="sbtn" id="anaBtn" disabled>Lihat analisis</button>
    </div>
-   <p class="hint" id="holdHint">Tanpa keyboard MIDI? Nyalakan "Klik untuk tahan" supaya beberapa tuts bisa ditekan bersamaan dengan klik.</p>
+   <span class="sr" id="holdHint">Tanpa keyboard MIDI? Nyalakan supaya beberapa tuts bisa ditekan bersamaan dengan klik.</span>
   </div>
  </div>
  <div class="meander" aria-hidden="true"></div>
@@ -299,7 +318,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color
 
  <!-- TEORI -->
  <section class="view" id="v-teori">
-  <div class="seg" role="tablist" aria-label="Bagian teori">
+  <div class="seg" role="tablist" aria-label="Bagian teori"><span class="segind" aria-hidden="true"></span>
    <button role="tab" data-sub="interval">Interval</button>
    <button role="tab" data-sub="chord">Chord &amp; rasa</button>
    <button role="tab" data-sub="tangga">Tangga nada</button>
@@ -514,7 +533,9 @@ function setRange(r){if(!RANGES[r]||r==RNG)return;RNG=r;try{localStorage.setItem
 const keyEl=m=>kb.querySelector(`[data-m="${m}"]`);
 function setKb(map){kbMap=map;kb.querySelectorAll('[data-m]').forEach(k=>{const v=map[k.dataset.m];k.classList.remove('root','on','step');k.querySelector('.lab').textContent=v?v.l:'';if(v)k.classList.add(v.c)})}
 function flash(m,delay){const k=keyEl(m);if(!k)return;setTimeout(()=>{k.classList.add('hit');setTimeout(()=>k.classList.remove('hit'),260)},delay*1000)}
-function big(a,b){$('#big').textContent=a;$('#sub').innerHTML=b||''}
+const RM=matchMedia('(prefers-reduced-motion: reduce)');
+const anim=(el,kf,o)=>{if(!RM.matches&&el&&el.animate)el.animate(kf,{easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards',...o})};
+function big(a,b){const B=$('#big'),changed=B.textContent!=a;B.textContent=a;$('#sub').innerHTML=b||'';if(changed){anim(B,[{opacity:0,transform:'translateY(12px)',filter:'blur(8px)'},{opacity:1,transform:'none',filter:'blur(0)'}],{duration:520});anim($('#sub'),[{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:520,delay:70})}}
 const chips=(arr,sel,attr,lab=x=>disp(x))=>arr.map(x=>`<button class="chip ${x==sel?'sel':''}" data-${attr}="${x}">${lab(x)}</button>`).join('');
 
 /* held notes: MIDI, laptop keys, hold-mode clicks */
@@ -669,13 +690,13 @@ let lastMs=[],prevLen=0;
 function rAna(){const a=analyze(lastMs);$('#anaT').textContent=a?`Analisis: ${a.name}`:'Analisis';$('#anaBody').innerHTML=a?a.card:'<p class="mut">Mainkan beberapa not dulu.</p>';$('#anaKey').innerHTML=chips(ROOTS,S.dKey,'dtk')}
 function onHeld(){const ms=heldList(),pcs=new Set(ms.map(m=>m%12));
  kb.querySelectorAll('[data-m]').forEach(k=>k.classList.toggle('held',ms.includes(+k.dataset.m)));
- const nm=$('#liveName'),inf=$('#liveInfo');
+ const nm=$('#liveName'),inf=$('#liveInfo'),pn=nm.textContent;
  if(!ms.length){nm.textContent='–';inf.innerHTML=S.target?`Coba mainkan <b>${S.target.name}</b>.`:(S.hold?'Klik tuts untuk menahan, klik lagi untuk melepas.':'Mainkan beberapa tuts bersamaan.');}
  else{const a=analyze(ms);nm.textContent=a.name;let s=a.short;
   if(S.target){const req=S.target.req||S.target.pcs,ok=[...pcs].every(p=>S.target.pcs.has(p))&&[...req].every(p=>pcs.has(p));s=ok?`<span class="ok">Tepat, itu ${S.target.name}</span>`:`Target: ${S.target.name}`}
   inf.innerHTML=s;if(ms.length>=prevLen)lastMs=ms;$('#anaBtn').disabled=false;if($('#ana').classList.contains('open'))rAna();quizCheck(pcs);matHeld(pcs,ms)}
- prevLen=ms.length}
-$('#holdBtn').onclick=e=>{S.hold=!S.hold;e.currentTarget.setAttribute('aria-pressed',S.hold);$('#holdHint').textContent=S.hold?'Aktif: klik tuts untuk menahan, klik lagi untuk melepas. Matikan untuk kembali ke klik biasa.':'Tanpa keyboard MIDI? Nyalakan "Klik untuk tahan" supaya beberapa tuts bisa ditekan bersamaan dengan klik.';if(!S.hold)clickHeld.clear();onHeld()};
+ prevLen=ms.length;if(nm.textContent!=pn)anim(nm,[{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:380})}
+$('#holdBtn').onclick=e=>{const b=e.currentTarget;S.hold=!S.hold;b.setAttribute('aria-pressed',S.hold);const tip=S.hold?'Aktif: klik tuts untuk menahan, klik lagi untuk melepas.':'Tanpa keyboard MIDI? Nyalakan supaya beberapa tuts bisa ditekan bersamaan dengan klik.';b.dataset.tip=tip;$('#holdHint').textContent=tip;b.classList.add('showtip');clearTimeout(b._t);b._t=setTimeout(()=>b.classList.remove('showtip'),2600);if(!S.hold)clickHeld.clear();onHeld()};
 $('#relBtn').onclick=()=>{clickHeld.clear();kbHeld.clear();onHeld()};
 $('#anaBtn').onclick=()=>{$('#ana').classList.add('open');rAna();$('#ana').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})};
 $('#anaClose').onclick=()=>$('#ana').classList.remove('open');
@@ -850,13 +871,23 @@ function route(){const h=location.hash.slice(1);let v='materi',sub=S.sub;
  $('.nav a[data-view=teori]').setAttribute('href','#teori-'+sub);$('.nav a[data-view=materi]').setAttribute('href','#materi-'+LES[M.i].id);
  $$('.view').forEach(s=>s.classList.toggle('act',s.id=='v-'+v));
  if(v=='teori'){$$('.seg button').forEach(b=>b.setAttribute('aria-selected',b.dataset.sub==sub));$$('.sub').forEach(s=>s.classList.toggle('act',s.id=='s-'+sub));$('#ctx').textContent='Jelajah · '+SUBN[sub];SUBR[sub]()}
- else if(v=='materi'){rMat();if(h.startsWith('materi-'))window.scrollTo({top:0})}
+ else if(v=='materi'){rMat();if(h.startsWith('materi-')&&scrollY>200)window.scrollTo({top:0,behavior:RM.matches?'auto':'smooth'})}
  else if(v=='aransemen'){$('#ctx').textContent='Aransemen';rPr()}
  else{$('#ctx').textContent='Latihan telinga';rQ();setKb({});big('Latihan telinga','Tekan "Soal baru" untuk mulai. Jawab dengan klik, atau mainkan jawabannya di keyboard.')}
- onHeld()}
+ onHeld();moveInd();
+ const key=v+(v=='teori'?sub:v=='materi'?M.i:'');if(key!=lastKey){lastKey=key;stagger(v,sub)}}
+let lastKey='';
+function moveInd(){const a=$('.nav a[aria-current=page]'),i=$('.navind');if(a&&i){i.style.setProperty('--x',(a.offsetLeft+a.offsetWidth/2-6)+'px')}
+ const b=$('.seg button[aria-selected=true]'),g=$('.segind');if(b&&g&&b.offsetWidth){g.style.setProperty('--x',b.offsetLeft+'px');g.style.setProperty('--w',b.offsetWidth+'px')}}
+function stagger(v,sub){const sel=v=='materi'?'#matHead,#matBody>*,#matDemo,#matEx,#matLink,.pn2':v=='teori'?`#s-${sub} .cols>*,#s-${sub}>*:not(.cols)`:`#v-${v} .cols>*`;
+ $$(sel).forEach((el,i)=>anim(el,[{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'none'}],{duration:700,delay:Math.min(i,8)*60}))}
+/* scroll reveal + parallax */
+const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){anim(e.target,[{opacity:0,transform:'translateY(24px)'},{opacity:1,transform:'none'}],{duration:800});io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'}):null;
+function watch(){if(!io)return;$$('.ex,.two>*,.transport,#prCard,.score,footer').forEach(el=>{if(!el._w&&el.getBoundingClientRect().top>innerHeight){el._w=1;io.observe(el)}})}
+const deco=$('.deco');let tick=false;addEventListener('scroll',()=>{if(RM.matches||tick)return;tick=true;requestAnimationFrame(()=>{const y=scrollY;if(y<600)deco.style.transform=`translateY(${y*.25}px)`;tick=false})},{passive:true});
 const center=()=>{const w=$('.kbwrap'),c=keyEl(60);if(c&&w.scrollWidth>w.clientWidth)w.scrollLeft=c.offsetLeft-w.clientWidth/2+60};
 if(matchMedia('(max-width:900px)').matches)$('.toc').removeAttribute('open');
-buildKb();window.addEventListener('hashchange',route);route();center();window.addEventListener('resize',center);
+buildKb();window.addEventListener('hashchange',()=>{route();watch()});route();center();watch();window.addEventListener('resize',()=>{center();moveInd()});document.fonts&&document.fonts.ready.then(moveInd);
 }
 </script>
 </body>
