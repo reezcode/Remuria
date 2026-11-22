@@ -55,7 +55,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 /* stage */
 .stage{position:relative;overflow:hidden;color:#e9f2f1;background:radial-gradient(70% 120% at 78% -30%,rgba(120,210,215,.30),transparent 60%),linear-gradient(#103b47,#0a242c 62%,#081b21)}
 .deco{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.stage .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:40px;padding-top:30px;padding-bottom:26px}
+.stage .wrap{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:40px;padding-top:30px;padding-bottom:26px}
 @media(max-width:820px){.stage .wrap{grid-template-columns:minmax(0,1fr);gap:18px;padding-top:22px}}
 #ctx{font-size:14px;color:#a8cfd1;font-weight:500}
 #big{font:600 clamp(42px,5.4vw,68px)/1 'Cormorant Garamond',Georgia,serif;margin-top:6px;text-wrap:balance}
@@ -172,6 +172,7 @@ input[type=range]{width:150px;accent-color:var(--aqua)}
 .toc summary .mut{font:500 13px Figtree,sans-serif}
 .bar{height:4px;background:var(--line);margin:6px 0 14px}.bar span{display:block;height:100%;background:var(--gold);transition:width .3s}
 .ml,.ml ol{list-style:none;margin:0;padding:0}
+.tier{display:flex;justify-content:space-between;align-items:baseline;margin:22px 0 2px;padding-top:12px;border-top:1px solid var(--ink)}.tier:first-child{margin-top:4px}.tier b{font:600 20px 'Cormorant Garamond',serif}.tier span{font-size:13px;color:var(--mut)}
 .mb>span{display:block;font:600 13px Figtree,sans-serif;color:var(--mut);margin:16px 0 4px}
 .ml a{display:flex;gap:10px;align-items:baseline;padding:7px 4px;color:var(--ink);text-decoration:none;font-size:15px;line-height:1.35;border-radius:3px}
 .ml a:hover{background:var(--card2)}
@@ -205,6 +206,14 @@ input[type=range]{width:150px;accent-color:var(--aqua)}
 .pn2{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:36px;padding-top:20px;border-top:1px solid var(--line)}
 .pn2 .btn:disabled{opacity:.4;cursor:default}
 footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color:var(--mut)}
+.caustic{position:absolute;inset:-30%;pointer-events:none;opacity:.12;mix-blend-mode:screen;filter:blur(5px);background:radial-gradient(closest-side,rgba(190,245,245,.6),transparent) 0 0/240px 150px,radial-gradient(closest-side,rgba(190,245,245,.45),transparent) 70px 50px/330px 190px;animation:drift 34s linear infinite}
+@keyframes drift{to{background-position:240px 150px,-330px 190px}}
+.waves{position:absolute;left:0;bottom:-1px;width:200%;height:40px;pointer-events:none}
+.waves .w1{fill:rgba(207,239,240,.05);animation:wave 22s linear infinite}
+.waves .w2{fill:rgba(207,239,240,.07);animation:wave 34s linear infinite reverse}
+@keyframes wave{to{transform:translateX(-50%)}}
+.ripple{position:absolute;width:56px;height:12px;margin-left:-28px;border:1.5px solid rgba(207,239,240,.6);border-radius:50%;pointer-events:none;animation:rip 1.2s var(--ease) forwards;z-index:1}
+@keyframes rip{from{transform:scale(.3);opacity:.9}to{transform:scale(2.4);opacity:0}}
 /* motion */
 .tipbtn{position:relative}
 .tipbtn::after{content:attr(data-tip);position:absolute;left:0;bottom:calc(100% + 10px);width:250px;padding:10px 12px;background:#f4f1e6;color:#10232a;font:500 13px/1.45 Figtree,sans-serif;text-align:left;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.28);opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity .25s var(--ease),transform .35s var(--ease);z-index:5}
@@ -212,7 +221,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .chip,.btn,.sbtn,.pill,.pr,.demo,.dc,.md,.seg button,.nav a,.ml a{transition:background-color .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease),transform .2s var(--ease),filter .2s}
 .chip:active,.btn:active,.sbtn:active,.demo:active,.dc:active,.pill:active{transform:scale(.97)}
-.bubble{animation:rise 9s var(--ease) infinite}.bubble:nth-child(2){animation-duration:11s;animation-delay:-3s}.bubble:nth-child(3){animation-duration:13s;animation-delay:-6s}.bubble:nth-child(4){animation-duration:10s;animation-delay:-2s}.bubble:nth-child(5){animation-duration:12s;animation-delay:-8s}
+.bubble{animation:rise 9s var(--ease) infinite}.bubble:nth-child(2){animation-duration:11s;animation-delay:-3s}.bubble:nth-child(3){animation-duration:13s;animation-delay:-6s}.bubble:nth-child(4){animation-duration:10s;animation-delay:-2s}.bubble:nth-child(5){animation-duration:12s;animation-delay:-8s}.bubble:nth-child(6){animation-duration:14s;animation-delay:-5s}.bubble:nth-child(7){animation-duration:10.5s;animation-delay:-1s}.bubble:nth-child(8){animation-duration:15s;animation-delay:-9s}.bubble:nth-child(9){animation-duration:12.5s;animation-delay:-4s}
 @keyframes rise{0%{transform:translateY(40px);opacity:0}20%{opacity:1}100%{transform:translateY(-120px);opacity:0}}
 .rays{animation:shimmer 10s ease-in-out infinite alternate}
 @keyframes shimmer{from{opacity:.55}to{opacity:1}}
@@ -263,8 +272,10 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color
      </defs>
   <g class="rays"><polygon points="980,0 1060,0 820,320 640,320" fill="url(#ray)"/><polygon points="1110,0 1150,0 1010,320 900,320" fill="url(#ray)"/><polygon points="1220,0 1300,0 1290,320 1140,320" fill="url(#ray)"/></g>
   <g fill="none" stroke="#d8b563" stroke-opacity=".12" stroke-width="2"><path d="M-40 330V210a95 95 0 0 1 190 0V330"/><path d="M190 330V210a95 95 0 0 1 190 0V330"/><path d="M420 330V210a95 95 0 0 1 190 0V330"/><path d="M650 330V210a95 95 0 0 1 190 0V330"/><path d="M880 330V210a95 95 0 0 1 190 0V330"/><path d="M1110 330V210a95 95 0 0 1 190 0V330"/><path d="M1340 330V210a95 95 0 0 1 190 0V330"/><path d="M161 330V200M189 330V200M151 200h48"/><path d="M391 330V200M419 330V200M381 200h48"/><path d="M621 330V200M649 330V200M611 200h48"/><path d="M851 330V200M879 330V200M841 200h48"/><path d="M1081 330V200M1109 330V200M1071 200h48"/><path d="M1311 330V200M1339 330V200M1301 200h48"/></g>
-  <g fill="none" stroke="#cfeff0" stroke-opacity=".22"><circle class="bubble" cx="1180" cy="96" r="4"/><circle class="bubble" cx="1196" cy="70" r="2.5"/><circle class="bubble" cx="1170" cy="44" r="3"/><circle class="bubble" cx="640" cy="120" r="2.5"/><circle class="bubble" cx="652" cy="92" r="1.8"/></g>
+  <g fill="none" stroke="#cfeff0" stroke-opacity=".22"><circle class="bubble" cx="1180" cy="96" r="4"/><circle class="bubble" cx="1196" cy="70" r="2.5"/><circle class="bubble" cx="1170" cy="44" r="3"/><circle class="bubble" cx="640" cy="120" r="2.5"/><circle class="bubble" cx="652" cy="92" r="1.8"/><circle class="bubble" cx="300" cy="140" r="2.2"/><circle class="bubble" cx="880" cy="160" r="3.2"/><circle class="bubble" cx="1330" cy="130" r="2"/><circle class="bubble" cx="90" cy="170" r="2.6"/></g>
  </svg>
+ <div class="caustic" aria-hidden="true"></div>
+ <svg class="waves" viewBox="0 0 2880 48" preserveAspectRatio="none" aria-hidden="true"><path class="w1" d="M0 30 Q180 18 360 30 T720 30 T1080 30 T1440 30 T1800 30 T2160 30 T2520 30 T2880 30 V48 H0Z"/><path class="w2" d="M0 36 Q240 26 480 36 T960 36 T1440 36 T1920 36 T2400 36 T2880 36 V48 H0Z"/></svg>
  <div class="wrap">
   <div aria-live="polite">
    <div id="ctx">Teori · Interval</div>
@@ -532,7 +543,10 @@ function buildKb(){[LO,HI]=RANGES[RNG];const W=[...Array(HI-LO+1).keys()].filter
 function setRange(r){if(!RANGES[r]||r==RNG)return;RNG=r;try{localStorage.setItem('rm-range',r)}catch(e){}buildKb();onHeld();center()}
 const keyEl=m=>kb.querySelector(`[data-m="${m}"]`);
 function setKb(map){kbMap=map;kb.querySelectorAll('[data-m]').forEach(k=>{const v=map[k.dataset.m];k.classList.remove('root','on','step');k.querySelector('.lab').textContent=v?v.l:'';if(v)k.classList.add(v.c)})}
-function flash(m,delay){const k=keyEl(m);if(!k)return;setTimeout(()=>{k.classList.add('hit');setTimeout(()=>k.classList.remove('hit'),260)},delay*1000)}
+let ripN=0;
+function ripple(k){if(matchMedia('(prefers-reduced-motion: reduce)').matches||ripN>6)return;const st=document.querySelector('.stage'),kw=document.querySelector('.kbwrap'),r=k.getBoundingClientRect(),sr=st.getBoundingClientRect(),el=document.createElement('span');
+ el.className='ripple';el.style.left=(r.left+r.width/2-sr.left)+'px';el.style.bottom=(kw.offsetHeight+18)+'px';st.appendChild(el);ripN++;el.addEventListener('animationend',()=>{el.remove();ripN--})}
+function flash(m,delay){const k=keyEl(m);if(!k)return;setTimeout(()=>{k.classList.add('hit');ripple(k);setTimeout(()=>k.classList.remove('hit'),260)},delay*1000)}
 const RM=matchMedia('(prefers-reduced-motion: reduce)');
 const anim=(el,kf,o)=>{if(!RM.matches&&el&&el.animate)el.animate(kf,{easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards',...o})};
 function big(a,b){const B=$('#big'),changed=B.textContent!=a;B.textContent=a;$('#sub').innerHTML=b||'';if(changed){anim(B,[{opacity:0,transform:'translateY(12px)',filter:'blur(8px)'},{opacity:1,transform:'none',filter:'blur(0)'}],{duration:520});anim($('#sub'),[{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:520,delay:70})}}
@@ -820,7 +834,88 @@ ex:[{p:'Mainkan C Lydian (ada F♯)',...sq('C','D','E','F#','G','A','B','C')}]},
 {b:5,t:'Peta penguasaan',g:'Tahu apa yang harus dikuasai dan cara latihannya.',
 body:`<p>Tanda kamu sudah menguasai dasar-dasarnya:</p><p>· Bisa memainkan triad mayor dan minor di 12 kunci tanpa melihat rumus.<br>· Bisa memainkan chord 7 (maj7, 7, m7) di 12 kunci.<br>· Bisa menganalisis lagu ke angka Romawi.<br>· Bisa mengiringi lagu dengan pola tangan kiri sambil membaca chord.<br>· Skor latihan telinga level Sedang di atas 80%.<br>· Bisa membuat aransemen 8 birama sendiri dengan voice leading.</p><p><b>Rutinitas harian 30–45 menit:</b> 10 menit tangga nada dan chord (ganti kunci tiap minggu), 10 menit latihan telinga, 15 menit analisis lagu dan aransemen, 5–10 menit improvisasi bebas.</p>`,
 demo:[],ex:[]}];
+LES.push(
+{b:6,t:'Secondary dominant',g:'Bisa membuat chord mana pun terasa "dituju" dengan dominant-nya sendiri.',
+body:`<p>Di Bab 4 kamu sudah mencoba A7 → Dm. Itu salah satu <b>secondary dominant</b>: dominant 7 dari chord selain I. Rumusnya: untuk menuju chord X, mainkan chord 7 yang root-nya 5 semitone di bawah X (atau kuint di atasnya).</p><p>Di kunci C ada lima: <b>A7 → Dm</b> (V7/ii), <b>B7 → Em</b> (V7/iii), <b>C7 → F</b> (V7/IV), <b>D7 → G</b> (V7/V), dan <b>E7 → Am</b> (V7/vi). Tidak ada V7/vii° karena chord diminished tidak terasa sebagai "rumah sementara".</p><p class="tip"><b>Ciri telinga:</b> muncul satu not di luar tangga nada (misalnya F♯ di D7, G♯ di E7) yang langsung ingin naik setengah langkah.</p>`,
+demo:[{l:'D7 → G (V7/V)',prog:[['D','7'],['G','maj']]},{l:'E7 → Am (V7/vi)',prog:[['E','7'],['A','min']]},{l:'C – E7 – Am – D7 – G7 – C',prog:[['C','maj'],['E','7'],['A','min'],['D','7'],['G','7'],['C','maj']]}],
+ex:[{p:'Mainkan V7/V di kunci C: D7 lalu G',prog:[['D','7'],['G','maj']]},{p:'Mainkan V7/vi di kunci C: E7 lalu Am',prog:[['E','7'],['A','min']]},{p:'Mainkan V7/IV di kunci G: G7 lalu C',prog:[['G','7'],['C','maj']]}]},
+{b:6,t:'Related ii: ii–V menuju chord lain',g:'Bisa memperpanjang secondary dominant menjadi pasangan ii–V.',
+body:`<p>Secondary dominant bisa didahului chord ii-nya sendiri, disebut <b>related ii</b>. Jadi bukan hanya A7 → Dm, tapi <b>Em7 – A7 → Dm7</b>. Pola ii–V ini adalah "kalimat" paling umum di jazz, R&B, dan pop yang lebih kaya.</p><p>Cara mencari: tentukan chord tujuan, lalu mundur dua langkah kuint. Tujuan Dm7: V-nya A7, ii-nya Em7. Kalau tujuannya chord minor, ii-nya sering dibuat m7♭5 (Eø7 – A7 → Dm).</p>`,
+demo:[{l:'Em7 – A7 – Dm7',prog:[['E','m7'],['A','7'],['D','m7']]},{l:'Am7 – D7 – Gmaj7 (ii–V ke G)',prog:[['A','m7'],['D','7'],['G','maj7']]}],
+ex:[{p:'Mainkan ii–V menuju Dm7: Em7 – A7 – Dm7',prog:[['E','m7'],['A','7'],['D','m7']]},{p:'Mainkan ii–V menuju F: Gm7 – C7 – Fmaj7',prog:[['G','m7'],['C','7'],['F','maj7']]}]},
+{b:6,t:'Extended dominant: rantai dominant',g:'Bisa menyusun beberapa dominant berantai yang akhirnya pulang.',
+body:`<p>Kalau dominant tidak langsung pulang tapi menuju dominant lain, terbentuk <b>rantai dominant</b> (<i>extended dominant</i>). Contoh: <b>E7 → A7 → D7 → G7 → C</b>. Setiap chord 7 adalah V dari chord berikutnya, jadi tegangannya terus berpindah sampai akhirnya mendarat.</p><p>Pola ini sering muncul di bagian bridge, ragtime, dan lagu-lagu lawas. Di piano, voice leading-nya enak: not ke-7 dari satu chord turun setengah langkah menjadi terts chord berikutnya.</p>`,
+demo:[{l:'E7 → A7 → D7 → G7 → C',prog:[['E','7'],['A','7'],['D','7'],['G','7'],['C','maj']]}],
+ex:[{p:'Mainkan rantai A7 → D7 → G7 → C',prog:[['A','7'],['D','7'],['G','7'],['C','maj']]}]},
+{b:6,t:'Diminished 7 sebagai penghubung',g:'Bisa memakai dim7 untuk mendorong ke chord berikutnya.',
+body:`<p>Chord <b>dim7</b> yang root-nya setengah langkah di bawah chord tujuan berfungsi mirip dominant. Contoh di kunci C: <b>C♯dim7 → Dm</b>, <b>D♯dim7 → Em</b>, <b>G♯dim7 → Am</b>. Ini disebut <i>secondary diminished</i> (vii°7 dari chord tujuan).</p><p>dim7 juga simetris: setiap notnya berjarak 3 semitone, jadi satu bentuk tangan punya empat nama (C♯dim7 = Edim7 = Gdim7 = B♭dim7). Ini membuatnya sangat praktis sebagai <b>passing chord</b>, misalnya C – C♯dim7 – Dm7 – G7.</p>`,
+demo:[{l:'C – C♯dim7 – Dm7 – G7',prog:[['C','maj'],['C#','dim7'],['D','m7'],['G','7']]},{l:'G♯dim7 → Am',prog:[['G#','dim7'],['A','min']]}],
+ex:[{p:'Mainkan C♯dim7 lalu Dm',prog:[['C#','dim7'],['D','min']]},{p:'Mainkan G♯dim7 lalu Am',prog:[['G#','dim7'],['A','min']]}]},
+{b:7,t:'Modal interchange (borrowed chord) lengkap',g:'Bisa meminjam chord dari kunci minor paralel untuk warna emosional.',
+body:`<p><b>Modal interchange</b> atau <i>modal mixture</i> artinya meminjam chord dari kunci paralel (C mayor meminjam dari C minor). Yang paling sering dipinjam:</p><p><b>iv</b> (Fm): haru, sangat umum sebelum kembali ke I. <b>♭VI</b> (A♭): luas, sinematik. <b>♭VII</b> (B♭): heroik, rock. <b>♭III</b> (E♭): berani dan terang. <b>iiø7</b> (Dm7♭5): ii yang lebih gelap sebelum V.</p><p>Kombinasi <b>♭VI – ♭VII – I</b> (A♭ – B♭ – C) adalah "kadens epik" yang sering terdengar di musik film dan game.</p>`,
+demo:[{l:'C – A♭ – B♭ – C',prog:[['C','maj'],['Ab','maj'],['Bb','maj'],['C','maj']]},{l:'C – E♭ – F – C',prog:[['C','maj'],['Eb','maj'],['F','maj'],['C','maj']]},{l:'Dm7♭5 – G7 – C',prog:[['D','m7b5'],['G','7'],['C','maj']]}],
+ex:[{p:'Mainkan kadens epik di C: A♭ – B♭ – C',prog:[['Ab','maj'],['Bb','maj'],['C','maj']]},{p:'Mainkan iv pinjaman di G: G – C – Cm – G',prog:[['G','maj'],['C','maj'],['C','min'],['G','maj']]}]},
+{b:7,t:'Neapolitan (♭II)',g:'Kenal chord predominant yang gelap dan dramatis.',
+body:`<p><b>Neapolitan</b> adalah chord mayor yang dibangun di atas ♭2. Di A minor: <b>B♭ mayor</b>. Fungsinya predominant: muncul sebelum V, menggantikan iv atau ii°.</p><p>Biasanya dimainkan dalam <b>inversi 1</b> dengan bass not ke-4 (B♭/D di A minor), karena itu disebut "Neapolitan sixth" (♭II6). Bass D kemudian naik ke E (V), dan not B♭ turun ke G♯: gerakan kromatik yang sangat dramatis.</p>`,
+demo:[{l:'B♭/D → E7 → Am',voic:[[50,58,62,65],[52,56,62,64],[45,57,60,64]]}],
+ex:[{p:'Mainkan Neapolitan di A minor: B♭/D (D paling bawah)',...cd('Bb','maj',{bass:'D'})},{p:'Lanjutkan ke E7',...cd('E','7')},{p:'Lalu pulang ke Am',...cd('A','min')}]},
+{b:7,t:'Augmented sixth',g:'Kenal chord kromatik yang "membuka" ke dominant.',
+body:`<p><b>Augmented sixth</b> adalah chord predominant di kunci minor (atau dipinjam di mayor) yang dua notnya bergerak keluar ke oktaf dominant: ♭6 turun ke 5, ♯4 naik ke 5. Di C minor: A♭ turun ke G, F♯ naik ke G.</p><p>Tiga jenis: <b>Italian</b> (A♭ C F♯), <b>French</b> (A♭ C D F♯), dan <b>German</b> (A♭ C E♭ F♯). German +6 bunyinya persis sama dengan A♭7, hanya ditulis beda karena fungsinya beda. Fakta ini sering dipakai untuk modulasi.</p>`,
+demo:[{l:'German +6 → G (C minor)',voic:[[44,60,63,66],[43,59,62,67]]},{l:'Italian +6 → G',voic:[[44,60,66],[43,59,67]]}],
+ex:[{p:'Mainkan German +6 di C minor: A♭ C E♭ F♯',notes:['Ab','C','Eb','F#']},{p:'Resolusikan ke G mayor',...cd('G','maj')}]},
+{b:7,t:'Chromatic mediant',g:'Bisa pindah chord dengan "lompatan warna" yang sinematik.',
+body:`<p><b>Chromatic mediant</b> adalah perpindahan antara dua chord yang root-nya berjarak terts (3 atau 4 semitone) dan kualitasnya sama, sehingga muncul not di luar kunci. Contoh dari C: <b>E mayor</b>, <b>A♭ mayor</b>, <b>A mayor</b>, <b>E♭ mayor</b>.</p><p>Perpindahan ini tidak punya tarikan fungsional seperti V–I, tapi biasanya ada satu not yang sama (common tone), jadi terdengar ajaib dan "mengubah suasana". Banyak dipakai di musik film.</p>`,
+demo:[{l:'C → E → C',prog:[['C','maj'],['E','maj'],['C','maj']]},{l:'C → A♭ → C',prog:[['C','maj'],['Ab','maj'],['C','maj']]}],
+ex:[{p:'Mainkan C → E → C',prog:[['C','maj'],['E','maj'],['C','maj']]},{p:'Mainkan C → A♭ → C',prog:[['C','maj'],['Ab','maj'],['C','maj']]}]},
+{b:8,t:'Modulasi dengan pivot chord',g:'Bisa pindah kunci dengan mulus lewat chord yang dimiliki dua kunci.',
+body:`<p><b>Modulasi</b> berarti pindah ke kunci baru dan menetap di sana (beda dengan secondary dominant yang hanya mampir). Cara paling halus: <b>pivot chord</b>, yaitu chord yang ada di kunci lama dan kunci baru.</p><p>Contoh C → G: <b>Am</b> adalah vi di C sekaligus ii di G. Jadi: C – Am (pivot) – D7 – G. Kunci terdekat untuk modulasi adalah yang berbeda satu not saja: dominant (G), subdominant (F), dan relative minor (Am).</p>`,
+demo:[{l:'C – Am – D7 – G (C ke G)',prog:[['C','maj'],['A','min'],['D','7'],['G','maj']]},{l:'C – Dm – B♭ – C7 – F (C ke F)',prog:[['C','maj'],['D','min'],['Bb','maj'],['C','7'],['F','maj']]}],
+ex:[{p:'Modulasi C ke G lewat pivot Am',prog:[['C','maj'],['A','min'],['D','7'],['G','maj']]}]},
+{b:8,t:'Modulasi langsung dan naik semitone',g:'Bisa membuat lonjakan energi dengan pindah kunci mendadak.',
+body:`<p><b>Modulasi langsung</b> pindah kunci tanpa pivot, biasanya di batas bagian lagu. Yang paling terkenal di pop adalah <b>naik setengah atau satu langkah</b> di reff terakhir untuk memberi lonjakan energi.</p><p>Supaya tidak kasar, sisipkan <b>dominant kunci baru</b> tepat sebelum pindah. Dari C ke D♭: ... G7 – C – <b>A♭7</b> – D♭. A♭7 adalah V7 dari D♭.</p>`,
+demo:[{l:'C – G7 – C – A♭7 – D♭',prog:[['C','maj'],['G','7'],['C','maj'],['Ab','7'],['Db','maj']]}],
+ex:[{p:'Naik semitone: C – A♭7 – D♭',prog:[['C','maj'],['Ab','7'],['Db','maj']]}]},
+{b:8,t:'Sekuens dan circle of fifths',g:'Bisa memakai pola berulang yang bergerak lewat lingkaran kuint.',
+body:`<p><b>Sekuens</b> adalah pola chord yang diulang dari titik awal yang berbeda. Yang paling penting adalah <b>circle of fifths</b>: root bergerak turun kuint (atau naik kuart) setiap langkah.</p><p>Versi diatonik di C: <b>C – F – Bdim – Em – Am – Dm – G – C</b>. Versi pendeknya, <b>vi – ii – V – I</b> (Am7 – Dm7 – G7 – Cmaj7), adalah dasar banyak lagu jazz dan pop.</p>`,
+demo:[{l:'Circle of fifths diatonik di C',prog:[['C','maj7'],['F','maj7'],['B','m7b5'],['E','m7'],['A','m7'],['D','m7'],['G','7'],['C','maj7']]},{l:'Am7 – Dm7 – G7 – Cmaj7',prog:[['A','m7'],['D','m7'],['G','7'],['C','maj7']]}],
+ex:[{p:'Mainkan vi–ii–V–I di C dengan 7th',prog:[['A','m7'],['D','m7'],['G','7'],['C','maj7']]}]},
+{b:8,t:'Frase dan bentuk lagu',g:'Bisa melihat struktur besar sebuah lagu.',
+body:`<p>Lagu tersusun dari <b>frase</b> (biasanya 4 atau 8 birama) yang diakhiri kadens. Frase yang berakhir di V terasa seperti pertanyaan, frase yang berakhir di I terasa seperti jawaban; pasangan keduanya disebut <b>periode</b>.</p><p>Bentuk umum: <b>verse – pre-chorus – chorus – bridge</b> (pop), <b>AABA</b> 32 birama (standar jazz), dan <b>12-bar blues</b>: I7 (4 birama), IV7 (2), I7 (2), V7 (1), IV7 (1), I7 (2).</p>`,
+demo:[{l:'12-bar blues di C (ringkas)',prog:[['C','7'],['F','7'],['C','7'],['G','7'],['F','7'],['C','7']]}],
+ex:[{p:'Mainkan kerangka blues: C7 – F7 – C7 – G7 – F7 – C7',prog:[['C','7'],['F','7'],['C','7'],['G','7'],['F','7'],['C','7']]}]},
+{b:9,t:'Shell voicing',g:'Bisa memainkan chord 7 hanya dengan not yang paling penting.',
+body:`<p><b>Shell voicing</b> memakai root, terts, dan 7th saja; kuint dilewati karena paling tidak menentukan warna. Ada dua bentuk: <b>1–3–7</b> dan <b>1–7–3</b>.</p><p>Dalam ii–V–I, kedua bentuk dipakai bergantian supaya tangan hampir tidak bergerak: Dm7 (D–C–F) → G7 (G–F–B) → Cmaj7 (C–B–E). Shell adalah fondasi gaya bebop dan iringan tangan kiri.</p>`,
+demo:[{l:'Dm7 → G7 → Cmaj7 (shell)',voic:[[50,60,65],[43,53,59],[48,59,64]]}],
+ex:[{p:'Mainkan shell Dm7: D, C, F',notes:['D','C','F']},{p:'Mainkan shell G7: G, F, B',notes:['G','F','B']},{p:'Mainkan shell Cmaj7: C, B, E',notes:['C','B','E']}]},
+{b:9,t:'Guide tone line',g:'Bisa mendengar dan memainkan garis 3 dan 7 yang menyambung antar chord.',
+body:`<p><b>Guide tone</b> adalah terts dan 7th sebuah chord; dua not ini yang paling menentukan jenis chord. Dalam ii–V–I, guide tone membentuk garis yang bergerak setengah langkah: 7th Dm7 (C) turun ke terts G7 (B), dan 7th G7 (F) turun ke terts Cmaj7 (E).</p><p>Latihan ini membuat telinga dan tangan "tahu jalan" harmoni, dan sangat berguna saat improvisasi.</p>`,
+demo:[{l:'Guide tone: F+C → F+B → E+B',voic:[[65,72],[65,71],[64,71]]}],
+ex:[{p:'Guide tone Dm7: F dan C',notes:['F','C']},{p:'Guide tone G7: F dan B',notes:['F','B']},{p:'Guide tone Cmaj7: E dan B',notes:['E','B']}]},
+{b:9,t:'Rootless voicing tipe A dan B',g:'Bisa memainkan ii–V–I dengan warna jazz piano.',
+body:`<p><b>Rootless voicing</b> membuang root (dimainkan bass atau tangan kiri) dan menambah 9 atau 13. Rumus tipe A: <b>3–5–7–9</b>. Tipe B: <b>7–9–3–5</b>. Untuk dominant, 5 biasanya diganti 13.</p><p>ii–V–I di C tipe B: <b>Dm9</b> (C E F A) → <b>G13</b> (B E F A) → <b>Cmaj9</b> (B D E G). Perhatikan hanya satu atau dua not yang bergerak setiap chord.</p><p class="tip">Karena root tidak dimainkan, panel deteksi bisa membaca voicing ini dengan nama lain (misalnya C E F A terbaca Fmaj7/C). Itu wajar: tanpa bass, satu bentuk tangan memang bisa punya beberapa nama.</p>`,
+demo:[{l:'Tipe B: Dm9 → G13 → Cmaj9',voic:[[60,64,65,69],[59,64,65,69],[59,62,64,67]]},{l:'Tipe A: Dm9 → G13 → Cmaj9',voic:[[53,57,60,64],[53,57,59,64],[52,55,59,62]]}],
+ex:[{p:'Dm9 tipe B: C E F A',notes:['C','E','F','A']},{p:'G13 tipe B: B E F A',notes:['B','E','F','A']},{p:'Cmaj9 tipe B: B D E G',notes:['B','D','E','G']}]},
+{b:9,t:'Voicing kuartal dan sus',g:'Kenal warna modern dari chord yang disusun per kuart.',
+body:`<p>Chord tidak harus ditumpuk per terts. <b>Voicing kuartal</b> menumpuk interval kuart (5 semitone), menghasilkan bunyi terbuka dan modern yang tidak terlalu mayor atau minor.</p><p>Contoh terkenal adalah voicing "So What": tiga kuart lalu satu terts mayor, misalnya <b>E A D G B</b> untuk Em7(11). Voicing ini cocok untuk musik modal, fusion, dan neo-soul.</p>`,
+demo:[{l:'E A D G B (So What voicing)',voic:[[52,57,62,67,71]]},{l:'D G C F (tumpukan kuart)',voic:[[50,55,60,65]]}],
+ex:[{p:'Mainkan voicing E A D G B',notes:['E','A','D','G','B']}]},
+{b:10,t:'Chord-scale: tangga nada untuk tiap chord',g:'Tahu not mana yang aman saat improvisasi di atas chord tertentu.',
+body:`<p>Setiap chord punya tangga nada pasangan (<i>chord-scale</i>). Di kunci mayor: <b>Imaj7 → Ionian</b> (atau Lydian untuk warna ♯11), <b>ii7 → Dorian</b>, <b>V7 → Mixolydian</b>, <b>vi7 → Aeolian</b>. Untuk dominant yang tegang, misalnya V7 menuju chord minor, pakai warna ♭9 atau tangga nada altered.</p><p>Aturan praktis: tekankan chord tone di ketukan kuat, pakai not lain dari chord-scale sebagai lewat.</p>`,
+demo:[{l:'D Dorian di atas Dm7',seq:[62,64,65,67,69,71,72,74]},{l:'G Mixolydian di atas G7',seq:[55,57,59,60,62,64,65,67]}],
+ex:[{p:'Mainkan G Mixolydian (tangga nada untuk G7)',...sq('G','A','B','C','D','E','F','G')}]},
+{b:10,t:'Harmoni minor: line cliché',g:'Bisa memakai garis kromatik di dalam chord minor.',
+body:`<p>Di kunci minor, satu chord bisa "bergerak" lewat satu not kromatik sementara not lain diam. Ini disebut <b>line cliché</b>: <b>Am – Am(maj7) – Am7 – Am6</b>. Not A turun bertahap: A → G♯ → G → F♯.</p><p>Pola ini sering terdengar di lagu film, bossa, dan ballad. m(maj7) di sini muncul dari tangga nada minor harmonik dan melodik.</p>`,
+demo:[{l:'Am – Am(maj7) – Am7 – Am6',voic:[[57,60,64,69],[57,60,64,68],[57,60,64,67],[57,60,64,66]]}],
+ex:[{p:'Mainkan line cliché: Am – Am(maj7) – Am7 – Am6',prog:[['A','min'],['A','mMaj7'],['A','m7'],['A','m6']]}]},
+{b:10,t:'Telinga tingkat menengah',g:'Bisa mengenali chord di luar kunci saat mendengar lagu.',
+body:`<p>Latihan telinga di tingkat ini fokus pada <b>chord di luar kunci</b>: (1) saat ada not "asing" yang ingin naik setengah langkah, curigai <b>secondary dominant</b>; (2) saat suasana tiba-tiba haru atau gelap tanpa pindah kunci, curigai <b>borrowed chord</b> (iv, ♭VI, ♭VII); (3) saat semua terasa naik satu tingkat, itu <b>modulasi</b>.</p><p>Latihan harian: ambil satu lagu, cari not bass-nya, tulis chord dalam angka Romawi, lalu tandai chord yang tidak diatonik dan beri nama fungsinya.</p>`,
+demo:[],ex:[],link:['#latihan','Latihan telinga']},
+{b:10,t:'Proyek: reharmonisasi lagumu sendiri',g:'Menerapkan semua materi menengah dalam satu aransemen.',
+body:`<p>Pilih lagu sederhana yang kamu hafal (4–8 birama, progresi diatonik). Lalu kerjakan bertahap:</p><p>1. Tulis progresi aslinya dalam angka Romawi.<br>2. Ganti beberapa chord dengan 7th, 9, atau 6/9.<br>3. Sisipkan satu secondary dominant atau ii–V menuju chord penting.<br>4. Pinjam satu chord dari minor paralel (iv atau ♭VI) di dekat akhir frase.<br>5. Mainkan dengan shell atau rootless voicing, dengan voice leading.<br>6. Rekam, dengarkan ulang, pertahankan yang terasa pas.</p><p>Menu Aransemen bisa dipakai untuk mencoba urutan chord sebelum dimainkan sendiri.</p>`,
+demo:[],ex:[],link:['#aransemen','Aransemen']});
+BAB.push('Fungsi lanjutan','Warna kromatik','Modulasi dan bentuk','Voicing piano','Aplikasi');
 LES.forEach((l,i)=>l.id=i+1);
+
 let DONE=new Set();try{DONE=new Set(JSON.parse(localStorage.getItem('rm-done')||'[]'))}catch(e){}
 const saveDone=()=>{try{localStorage.setItem('rm-done',JSON.stringify([...DONE]))}catch(e){}};
 function chordMs(r,t,inv=0){const T=CH[t],p=pcOf(r);let b=p>=5?48+p:60+p,ms=T.i.map(([s])=>b+s);for(let k=0;k<inv;k++)ms.push(ms.shift()+12);return ms}
@@ -830,8 +925,8 @@ const M={i:0,steps:[],st:0,si:0,lock:false};
 try{const v=+localStorage.getItem('rm-les');if(v>=1&&v<=LES.length)M.i=v-1}catch(e){}
 function rMat(){const L=LES[M.i];M.steps=steps(L);M.st=0;M.si=0;M.lock=false;try{localStorage.setItem('rm-les',L.id)}catch(e){}
  const n=DONE.size;$('#matProg').textContent=`${n} dari ${LES.length} pelajaran selesai`;$('#matBar').style.width=(n/LES.length*100)+'%';
- $('#matList').innerHTML=BAB.slice(1).map((b,bi)=>`<li class="mb"><span>Bab ${bi+1} · ${b}</span><ol>${LES.filter(x=>x.b==bi+1).map(x=>`<li><a href="#materi-${x.id}" class="${x.id==L.id?'cur':''} ${DONE.has(x.id)?'done':''}"><span class="no">${DONE.has(x.id)?'✓':x.id}</span>${x.t}</a></li>`).join('')}</ol></li>`).join('');
- $('#matHead').innerHTML=`<div class="mk">Bab ${L.b} · ${BAB[L.b]} · Pelajaran ${L.id} dari ${LES.length}</div><h2 class="lt2">${L.t}</h2><p class="goal"><b>Tujuan:</b> ${L.g}</p>`;
+ $('#matList').innerHTML=BAB.slice(1).map((b,bi)=>`${bi==0||bi==5?`<li class="tier"><b>${bi==0?'Tingkat dasar':'Tingkat menengah'}</b><span>${LES.filter(x=>(bi==0?x.b<=5:x.b>5)&&DONE.has(x.id)).length} / ${LES.filter(x=>bi==0?x.b<=5:x.b>5).length}</span></li>`:''}<li class="mb"><span>Bab ${bi+1} · ${b}</span><ol>${LES.filter(x=>x.b==bi+1).map(x=>`<li><a href="#materi-${x.id}" class="${x.id==L.id?'cur':''} ${DONE.has(x.id)?'done':''}"><span class="no">${DONE.has(x.id)?'✓':x.id}</span>${x.t}</a></li>`).join('')}</ol></li>`).join('');
+ $('#matHead').innerHTML=`${L.b==6&&LES.filter(x=>x.b<=5&&!DONE.has(x.id)).length>5?'<p class="tip" style="margin-bottom:16px">Ini awal tingkat menengah. Materinya mengandalkan Bab 1–5, jadi selesaikan tingkat dasar dulu kalau belum.</p>':''}<div class="mk">${L.b>5?'Menengah':'Dasar'} · Bab ${L.b} · ${BAB[L.b]} · Pelajaran ${L.id} dari ${LES.length}</div><h2 class="lt2">${L.t}</h2><p class="goal"><b>Tujuan:</b> ${L.g}</p>`;
  $('#matBody').innerHTML=L.body;
  $('#matDemo').innerHTML=L.demo.length?`<div class="lbl">Dengar dan lihat di keyboard</div><div class="demos">${L.demo.map((d,i)=>`<button class="demo" data-demo="${i}"><span aria-hidden="true">▶</span>${d.l}</button>`).join('')}</div>`:'';
  $('#matLink').innerHTML=L.link?`<a class="more" href="${L.link[0]}">Jelajahi lebih jauh: ${L.link[1]} →</a>`:'';
