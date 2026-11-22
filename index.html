@@ -135,6 +135,7 @@ main{padding:30px 0 60px}
 .fn{display:inline-block;margin-top:6px;font-size:12px;font-weight:700;font-style:normal;width:20px;height:20px;line-height:20px;border-radius:50%;color:#fff}
 .fT{background:var(--aqua)}.fS{background:var(--gold)}.fD{background:var(--coral)}
 .feel{display:block;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--mut);margin-top:2px}
+.cg{margin-bottom:12px}.cgl{display:block;font-size:13px;color:var(--mut);margin-bottom:6px}
 .legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px;font-size:15px;color:var(--mut)}
 .legend .fn{margin:0 6px 0 0;text-align:center}
 .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;margin-top:32px}
@@ -344,7 +345,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color
 <script>
 {
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const LET='CDEFGAB',NAT=[0,2,4,5,7,9,11],MAJ=[0,2,4,5,7,9,11,12,14];
+const LET='CDEFGAB',NAT=[0,2,4,5,7,9,11],MAJ=[0,2,4,5,7,9,11,12,14,16,17,19,21];
 const ROOTS=['C','Db','D','Eb','E','F','F#','G','Ab','A','Bb','B'];
 const disp=n=>n.replace(/^(.)b/,'$1♭').replace('#','♯');
 const toA=s=>s.replace(/♭/g,'b').replace(/♯/g,'#');
@@ -358,8 +359,50 @@ const rnd=n=>Math.floor(Math.random()*n);
 const IV=[[1,2,'Minor 2nd','m2','tema film Jaws'],[2,2,'Major 2nd','M2','"Happy Birthday" (dari "py" ke "birth")'],[3,3,'Minor 3rd','m3','awal "Greensleeves"'],[4,3,'Major 3rd','M3','awal "When the Saints Go Marching In"'],[5,4,'Perfect 4th','P4','awal "Here Comes the Bride"'],[6,4,'Tritone','TT','awal tema "The Simpsons"'],[7,5,'Perfect 5th','P5','awal "Twinkle Twinkle Little Star"'],[8,6,'Minor 6th','m6','lompatan naik di "The Entertainer"'],[9,6,'Major 6th','M6','awal "My Bonnie Lies Over the Ocean"'],[10,7,'Minor 7th','m7','tema "Star Trek" seri original'],[11,7,'Major 7th','M7','lompatan di reff "Take On Me"'],[12,8,'Oktaf','P8','awal "Somewhere Over the Rainbow"']];
 const B3=[[0,1],[4,3],[7,5]],Bm=[[0,1],[3,3],[7,5]],Bd=[[0,1],[3,3],[6,5]];
 const CH={maj:{n:'Mayor',s:'',i:B3,d:'Major 3rd (4) + perfect 5th (7).'},min:{n:'Minor',s:'m',i:Bm,d:'Bedanya dengan mayor hanya terts turun setengah: 3 jadi ♭3.'},sus2:{n:'sus2',s:'sus2',i:[[0,1],[2,2],[7,5]],d:'Terts diganti not ke-2, jadi tidak mayor maupun minor.'},sus4:{n:'sus4',s:'sus4',i:[[0,1],[5,4],[7,5]],d:'Terts diganti not ke-4.'},7:{n:'7',s:'7',i:[...B3,[10,7]],d:'Dominant 7: mayor + ♭7. Ingin pindah ke chord yang 5 semitone di atasnya: '},maj7:{n:'maj7',s:'maj7',i:[...B3,[11,7]],d:'Mayor + major 7th.'},m7:{n:'m7',s:'m7',i:[...Bm,[10,7]],d:'Minor + ♭7. Sering muncul sebagai chord ii, misalnya Dm7 di kunci C.'},6:{n:'6',s:'6',i:[...B3,[9,6]],d:'Mayor + 6.'},add9:{n:'add9',s:'add9',i:[...B3,[14,9]],d:'Mayor + 9, yaitu not ke-2 satu oktaf di atas.'},dim:{n:'dim',s:'dim',i:Bd,d:'Dua minor 3rd bertumpuk.'},aug:{n:'aug',s:'aug',i:[[0,1],[4,3],[8,5]],d:'Dua major 3rd bertumpuk; kuint naik setengah.'},m7b5:{n:'m7♭5',s:'m7♭5',i:[...Bd,[10,7]],d:'Half-diminished: chord ii di kunci minor.'},dim7:{n:'dim7',s:'dim7',i:[...Bd,[9,7]],d:'Tiga minor 3rd bertumpuk dan simetris.'}};
-const CHO=['maj','min','sus2','sus4','7','maj7','m7','6','add9','dim','aug','m7b5','dim7'];
-const RASA={maj:['Cerah, stabil, terasa "pulang"','Lagu ceria, reff yang terasa lega, akhir lagu. Di kunci mayor, chord I adalah "rumah".'],min:['Sendu, introspektif','Lagu galau, bait yang bercerita, suasana malam. Di kunci mayor, chord vi (Am di kunci C) adalah versi sendu dari I.'],sus2:['Terbuka, mengambang, lapang','Intro, lagu ambient dan worship, pop modern. Bisa menggantikan chord mayor supaya tidak terlalu "manis".'],sus4:['Menggantung, menunggu jawaban','Akhir frase atau ending: mainkan Csus4 lalu C. Telinga merasa lega saat not ke-4 turun ke not ke-3.'],7:['Tegang tapi bluesy, "ingin pergi"','Blues, rock and roll, dan sebelum pindah chord (V7 → I). Juga sering di keroncong dan pop lawas.'],maj7:['Lembut, romantis, melamun','City pop, R&B, bossa nova, lagu santai sore. Ganti chord I dan IV dengan maj7 dan lagu terasa lebih "mewah".'],m7:['Halus, mellow, groovy','R&B, neo-soul, funk, jazz. Lebih lembut dari minor biasa dan tidak terlalu sedih.'],6:['Manis, retro, ceria santai','Ending lagu jazz atau swing, lagu lawas, keroncong.'],add9:['Luas, modern, berkilau','Pop modern, ballad piano, intro. Cocok untuk chord pertama lagu.'],dim:['Cemas, tidak stabil','Passing chord yang menyambung dua chord, misalnya C – C♯dim – Dm. Juga untuk efek dramatis.'],aug:['Aneh, melayang, seperti mimpi','Transisi menuju chord IV (C – Caug – F), suasana fantasi atau film.'],m7b5:['Gelap tapi lembut, seperti bertanya','Chord ii di kunci minor (ii–V–i), jazz minor, bossa yang sendu.'],dim7:['Sangat tegang, dramatis','Klimaks dramatis, musik film lama, passing chord yang kuat.']};
+Object.assign(CH,{
+'5':{n:'5 (power)',s:'5',i:[[0,1],[7,5]],d:'Hanya root dan kuint, tanpa terts.'},
+mMaj7:{n:'m(maj7)',s:'m(maj7)',i:[...Bm,[11,7]],d:'Minor + major 7th.'},
+'7sus4':{n:'7sus4',s:'7sus4',i:[[0,1],[5,4],[7,5],[10,7]],d:'sus4 + ♭7: dominant tanpa terts.'},
+m6:{n:'m6',s:'m6',i:[...Bm,[9,6]],d:'Minor + major 6th.'},
+madd9:{n:'madd9',s:'madd9',i:[...Bm,[14,9]],d:'Minor + 9.'},
+add11:{n:'add11',s:'add11',i:[...B3,[17,11]],d:'Mayor + 11 (not ke-4 satu oktaf di atas).'},
+'add#11':{n:'add♯11',s:'add♯11',i:[...B3,[18,11]],d:'Mayor + ♯11. Not ♯11 inilah ciri mode Lydian.'},
+'69':{n:'6/9',s:'6/9',i:[...B3,[9,6],[14,9]],d:'Mayor + 6 + 9, tanpa 7th.'},
+'9':{n:'9',s:'9',i:[...B3,[10,7],[14,9]],d:'Dominant 7 + 9.'},
+maj9:{n:'maj9',s:'maj9',i:[...B3,[11,7],[14,9]],d:'maj7 + 9.'},
+m9:{n:'m9',s:'m9',i:[...Bm,[10,7],[14,9]],d:'m7 + 9.'},
+m11:{n:'m11',s:'m11',i:[...Bm,[10,7],[14,9],[17,11]],d:'m7 + 9 + 11. Not ke-9 sering dilewati.'},
+'13':{n:'13',s:'13',i:[...B3,[10,7],[14,9],[21,13]],d:'Dominant 7 + 9 + 13. Not ke-11 dan ke-9 sering dilewati.'},
+'9sus4':{n:'9sus4',s:'9sus4',i:[[0,1],[5,4],[7,5],[10,7],[14,9]],d:'7sus4 + 9.'},
+'maj7#11':{n:'maj7♯11',s:'maj7♯11',i:[...B3,[11,7],[18,11]],d:'maj7 + ♯11.'},
+'7b9':{n:'7♭9',s:'7♭9',i:[...B3,[10,7],[13,9]],d:'Dominant 7 + ♭9.'},
+'7#9':{n:'7♯9',s:'7♯9',i:[...B3,[10,7],[15,9]],d:'Dominant 7 + ♯9: terts mayor dan "minor" berbunyi bersamaan.'},
+'7#11':{n:'7♯11',s:'7♯11',i:[...B3,[10,7],[18,11]],d:'Dominant 7 + ♯11 (Lydian dominant).'},
+'7b5':{n:'7♭5',s:'7♭5',i:[[0,1],[4,3],[6,5],[10,7]],d:'Dominant 7 dengan kuint turun.'},
+aug7:{n:'7♯5',s:'7♯5',i:[[0,1],[4,3],[8,5],[10,7]],d:'Dominant 7 dengan kuint naik.'}});
+const GROUPS=[['Dasar',['maj','min','sus2','sus4','dim','aug','5']],['Seventh',['7','maj7','m7','m7b5','dim7','mMaj7','7sus4']],['Warna: add dan 6',['6','m6','add9','madd9','add11','add#11','69']],['Extended',['9','maj9','m9','m11','13','9sus4','maj7#11']],['Altered',['7b9','7#9','7#11','7b5','aug7']]];
+const CHO=GROUPS.flatMap(g=>g[1]);
+const RASA={maj:['Cerah, stabil, terasa "pulang"','Lagu ceria, reff yang terasa lega, akhir lagu. Di kunci mayor, chord I adalah "rumah".'],min:['Sendu, introspektif','Lagu galau, bait yang bercerita, suasana malam. Di kunci mayor, chord vi (Am di kunci C) adalah versi sendu dari I.'],sus2:['Terbuka, mengambang, lapang','Intro, lagu ambient dan worship, pop modern. Bisa menggantikan chord mayor supaya tidak terlalu "manis".'],sus4:['Menggantung, menunggu jawaban','Akhir frase atau ending: mainkan Csus4 lalu C. Telinga merasa lega saat not ke-4 turun ke not ke-3.'],7:['Tegang tapi bluesy, "ingin pergi"','Blues, rock and roll, dan sebelum pindah chord (V7 → I). Juga sering di keroncong dan pop lawas.'],maj7:['Lembut, romantis, melamun','City pop, R&B, bossa nova, lagu santai sore. Ganti chord I dan IV dengan maj7 dan lagu terasa lebih "mewah".'],m7:['Halus, mellow, groovy','R&B, neo-soul, funk, jazz. Lebih lembut dari minor biasa dan tidak terlalu sedih.'],6:['Manis, retro, ceria santai','Ending lagu jazz atau swing, lagu lawas, keroncong.'],add9:['Luas, modern, berkilau','Pop modern, ballad piano, intro. Cocok untuk chord pertama lagu.'],dim:['Cemas, tidak stabil','Passing chord yang menyambung dua chord, misalnya C – C♯dim – Dm. Juga untuk efek dramatis.'],aug:['Aneh, melayang, seperti mimpi','Transisi menuju chord IV (C – Caug – F), suasana fantasi atau film.'],m7b5:['Gelap tapi lembut, seperti bertanya','Chord ii di kunci minor (ii–V–i), jazz minor, bossa yang sendu.'],dim7:['Sangat tegang, dramatis','Klimaks dramatis, musik film lama, passing chord yang kuat.'],
+'5':['Netral dan kuat','Rock, metal, intro yang tegas. Tanpa terts, jadi tidak terdengar ceria maupun sedih.'],
+mMaj7:['Misterius, cemas, sinematik','Film thriller dan noir, jazz minor, garis bass yang turun pelan.'],
+'7sus4':['Menggantung tapi santai','Gospel, funk, pengganti V7 yang lebih lembut.'],
+m6:['Gelap tapi elegan','Ending lagu minor yang klasik, bossa minor, nuansa film noir.'],
+madd9:['Sendu tapi indah, lapang','Ballad, pop sedih modern, intro piano.'],
+add11:['Terbuka, sedikit bergesek','Pop modern dan folk. Not ke-11 bergesek lembut dengan terts.'],
+'add#11':['Terang, melayang, ajaib','Warna mode Lydian: soundtrack film fantasi, musik game, dream pop.'],
+'69':['Hangat, lebar, tidak tegang','Ending jazz dan bossa, chord penutup yang lembut.'],
+'9':['Funky, hangat, groovy','Funk, soul, blues modern. Versi lebih kaya dari dominant 7.'],
+maj9:['Sangat lembut, mewah, melamun','Neo-soul, city pop, lo-fi, ballad R&B.'],
+m9:['Mellow, dalam, introspektif','Neo-soul, lo-fi, R&B malam hari.'],
+m11:['Luas, modern, sedikit misterius','Neo-soul, fusion, ambient. Terdengar seperti tumpukan kuart.'],
+'13':['Kaya, jazzy, ceria','Jazz, big band, gospel, funk.'],
+'9sus4':['Lembut, terbuka, modern','Gospel dan pop modern: dominant yang tidak terlalu tegang.'],
+'maj7#11':['Terang, mengambang, sinematik','Jazz modern, soundtrack, akhir lagu yang tidak biasa.'],
+'7b9':['Tegang, gelap, dramatis','Dominant menuju chord minor (V7♭9 → i), jazz, flamenco.'],
+'7#9':['Kasar dan bluesy','Rock, funk, blues. Dikenal juga sebagai "Hendrix chord".'],
+'7#11':['Terang tapi tegang','Jazz, musik film, funk.'],
+'7b5':['Tegang, aneh, jazzy','Jazz, substitusi tritone.'],
+aug7:['Tegang, melayang, ingin naik','Dominant dengan warna lebih dramatis sebelum pulang.']};
 const FEEL={maj:['rumah','melangkah','bimbang','harapan','tegang','sendu','gelisah'],min:['rumah sendu','gelap','cerah sesaat','duka','lesu','hangat, luas','heroik']};
 const FEELD={maj:['Pusat lagu. Di sini lagu terasa selesai.','Persiapan sebelum V, ramah dan sedikit sendu.','Rapuh dan ambigu; lebih sering dipakai untuk warna.','Terbuka dan membawa harapan, seperti "mengangkat" lagu.','Puncak ketegangan, ingin kembali ke I.','Versi sendu dari I, sering jadi awal bait galau.','Paling tidak stabil, ingin naik setengah langkah ke I.'],min:['Pusat lagu minor: stabil tapi sendu.','Gelap dan tegang, menuju v atau V.','Cahaya sesaat di tengah suasana minor.','Duka yang dalam; iv minor terasa sangat haru.','Lemah dan lesu. Ganti dengan V mayor supaya tarikan pulangnya lebih kuat.','Hangat dan luas, sering dipakai di lagu epik.','Heroik, banyak dipakai di rock dan musik film (VI–VII–i).']};
 const KCH={maj:['Murni dan polos: kesederhanaan, kepolosan, seperti obrolan anak-anak.','Senyum yang menyimpan duka; tidak bisa tertawa lepas, hanya tersenyum.','Kemenangan dan perayaan: mars, lagu hari raya, paduan suara yang bersorak.','Cinta, pengabdian, percakapan intim dengan Tuhan.','Sorak gembira dan tawa, kesenangan yang belum sepenuhnya utuh.','Ramah dan tenang.','Lega setelah berhasil melewati kesulitan; jiwa yang berjuang lalu menang.','Pedesaan, idilis, lirih. Perasaan lembut dan damai, rasa syukur atas persahabatan dan cinta yang setia.','Kematian dan keabadian; kunci mayor yang paling muram.','Cinta yang polos, puas dengan keadaan, harapan bertemu lagi orang tercinta, keceriaan anak muda.','Cinta yang ceria, hati nurani yang bersih, harapan akan dunia yang lebih baik.','Warna mencolok, gairah liar: marah, cemburu, putus asa.'],
@@ -431,8 +474,8 @@ function playIv(){const[a,b]=ivMidi();play([a,b],{arp:.55});play([a,b],{at:1.3,d
 /* ---- Teori: chord ---- */
 function chNotes(){const T=CH[S.ch],r=pcOf(S.chR),base=r>=5?48+r:60+r;let ns=T.i.map(([s,d])=>({m:base+s,n:spell(S.chR,s,d),dl:degLabel(s,d),s}));
  const inv=Math.min(S.inv,ns.length-1);for(let k=0;k<inv;k++){const x=ns.shift();ns.push({...x,m:x.m+12})}return ns}
-function rCh(){$('#chRoot').innerHTML=chips(ROOTS,S.chR,'chr');$('#chType').innerHTML=chips(CHO,S.ch,'cht',k=>CH[k].n);
- const T=CH[S.ch],n=T.i.length;if(S.inv>=n)S.inv=0;
+function rCh(){$('#chRoot').innerHTML=chips(ROOTS,S.chR,'chr');$('#chType').innerHTML=GROUPS.map(([g,ks])=>`<div class="cg"><span class="cgl">${g}</span><div class="chips">${chips(ks,S.ch,'cht',k=>CH[k].n)}</div></div>`).join('');
+ const T=CH[S.ch],n=Math.min(T.i.length,4);if(S.inv>=n)S.inv=0;
  $('#chInv').innerHTML=chips([...Array(n).keys()],S.inv,'inv',i=>i?'Inversi '+i:'Posisi dasar');
  const ns=chNotes(),sym=disp(S.chR)+T.s,map={};ns.forEach(x=>map[x.m]={c:x.s==0?'root':'on',l:x.n});setKb(map);
  const so=[...ns].sort((a,b)=>a.s-b.s);
@@ -440,7 +483,7 @@ function rCh(){$('#chRoot').innerHTML=chips(ROOTS,S.chR,'chr');$('#chType').inne
  $('#chTones').innerHTML=so.map(x=>`<div class="tone"><b>${x.dl}</b><span>${x.n}</span><small>${x.s} st</small></div>`).join('');
  $('#chDesc').textContent=T.d+(S.ch=='7'?`${sym} → ${spell(S.chR,5,4)}.`:'');
  $('#chMood').textContent=RASA[S.ch][0];$('#chUse').innerHTML='<b>Cocok untuk:</b> '+RASA[S.ch][1];
- S.target={name:sym,pcs:new Set(ns.map(x=>x.m%12))};
+ S.target={name:sym,pcs:new Set(ns.map(x=>x.m%12)),req:new Set(tInfo(T).filter(x=>!x.opt).map(x=>(pcOf(S.chR)+x.pc)%12))};
  const bass=ns[0].n;big(sym+(S.inv?` / ${bass}`:''),`Rumus ${so.map(x=>x.dl).join(' – ')} · rasa: ${RASA[S.ch][0].toLowerCase()}${S.inv?` · inversi ${S.inv}, not terbawah ${bass}`:''}`)}
 const chPlay=()=>play(chNotes().map(x=>x.m));
 
@@ -523,34 +566,40 @@ function quizCheck(pcs){const q=S.q;if(S.view!='latihan'||!q||q.done)return;cons
 $('#qNew').onclick=newQ;$('#qRe').onclick=playQ;
 
 /* ---- Deteksi chord (live) ---- */
-const DT=CHO.map(k=>CH[k]).concat([{s:'m6',i:[...Bm,[9,6]]},{s:'9',i:[...B3,[10,7],[14,9]]},{s:'maj9',i:[...B3,[11,7],[14,9]]},{s:'m9',i:[...Bm,[10,7],[14,9]]},{s:'7sus4',i:[[0,1],[5,4],[7,5],[10,7]]},{s:'m(maj7)',i:[...Bm,[11,7]]},{s:'madd9',i:[...Bm,[14,9]]},{s:'7♯5',i:[[0,1],[4,3],[8,5],[10,7]]},{s:'7♭9',i:[...B3,[10,7],[13,9]]}]);
+const DT=CHO.filter(k=>CH[k].i.length>=3).map(k=>({k,s:CH[k].s,i:CH[k].i}));
+const tInfo=t=>t.i.map(([s,d])=>({s,d,pc:s%12,opt:(d==5&&s==7)||(d==9&&s==14&&t.i.length>=5)}));
+const BASES=['maj7','7','m7','m7b5','dim7','mMaj7','maj','min','dim','aug','sus4','sus2'];
+const TEN={1:[13,9,'♭9'],2:[14,9,'9'],3:[15,9,'♯9'],4:[4,3,'3'],5:[17,11,'11'],6:[18,11,'♯11'],7:[7,5,'5'],8:[20,13,'♭13'],9:[21,13,'13'],10:[10,7,'♭7'],11:[11,7,'7']};
+function matchChords(pcs,bass){const res=[];
+ for(const r of pcs){const rel=new Set(pcs.map(p=>(p-r+12)%12)),bp=r==bass?0:1;
+  DT.forEach((t,ti)=>{const T=tInfo(t),P=new Set(T.map(x=>x.pc));if(![...rel].every(x=>P.has(x))||!T.every(x=>x.opt||rel.has(x.pc)))return;
+   const om=T.filter(x=>!rel.has(x.pc));res.push({r,s:t.s,k:t.k,tones:T.filter(x=>rel.has(x.pc)).map(x=>[x.s,x.d]),omit:om.map(x=>degLabel(x.s,x.d)),sc:om.length*2+bp+(om.length&&bp?8:0)+ti/1000})});
+  BASES.forEach((bk,bi)=>{const T=tInfo(CH[bk]);if(!T.every(x=>x.opt||rel.has(x.pc)))return;const P=new Set(T.map(x=>x.pc)),ext=[...rel].filter(x=>!P.has(x));if(!ext.length)return;
+   const tt=ext.map(x=>TEN[x]).sort((a,b)=>a[0]-b[0]),om=T.filter(x=>!rel.has(x.pc));
+   res.push({r,s:CH[bk].s+'('+tt.map(x=>x[2]).join(', ')+')',k:null,tones:[...T.filter(x=>rel.has(x.pc)).map(x=>[x.s,x.d]),...tt.map(x=>[x[0],x[1]])],omit:om.map(x=>degLabel(x.s,x.d)),sc:6+ext.length*2+om.length*2+bp+(om.length&&bp?8:0)+bi/1000})})}
+ return res.sort((a,b)=>a.sc-b.sc)}
 function analyze(ms){const so=[...new Set(ms)].sort((a,b)=>a-b);if(!so.length)return null;
  const pcs=[...new Set(so.map(m=>m%12))],bass=so[0]%12,bn=ROOTS[bass];
  if(pcs.length==1)return{name:disp(bn),short:'Satu not',rootPc:bass,nm:{[bass]:disp(bn)},card:`<p>Satu not: <b>${disp(bn)}</b>. Tekan minimal 3 not berbeda untuk membentuk chord.</p>`};
  if(pcs.length==2){const o=pcs.find(p=>p!=bass),semi=(o-bass+12)%12,v=IV.find(x=>x[0]==semi),tn=spell(bn,semi,v[1]);
-  const sug=DT.filter(t=>t.i.length==3&&t.n&&t.i.some(([s])=>s%12==semi)).slice(0,3).map(t=>{const add=t.i.find(([s])=>s&&s%12!=semi);return `tambah ${spell(bn,add[0],add[1])} → <b>${disp(bn)+t.s}</b>`});
-  return{name:`${disp(bn)} + ${tn}`,short:`${v[2]}, ${semi} semitone`,rootPc:bass,nm:{[bass]:disp(bn),[o]:tn},card:`<p>Interval <b>${v[2]}</b> (${semi} semitone). Dua not belum cukup untuk chord. Coba:</p><p>${sug.join('<br>')||'tambah satu not lagi.'}</p><p class="mut">Referensi telinga: ${v[4]}.</p>`}}
- const res=[];
- for(const r of pcs){const set=pcs.map(p=>(p-r+12)%12).sort((a,b)=>a-b).join();
-  DT.forEach((t,ti)=>{const pat=[...new Set(t.i.map(([s])=>s%12))].sort((a,b)=>a-b);let sc=null;
-   if(pat.join()==set)sc=0;else if(pat.length>=4&&t.i.some(([s,d])=>s==7&&d==5)&&pat.filter(x=>x!=7).join()==set)sc=2;
-   if(sc!==null)res.push({r,t,sc:sc+(r==bass?0:1),ti,omit:sc==2})})}
- res.sort((a,b)=>a.sc-b.sc||a.ti-b.ti);
- if(!res.length){const raw=so.map(m=>disp(ROOTS[m%12])).join(' ');return{name:'Tidak dikenali',short:raw,rootPc:-1,nm:Object.fromEntries(pcs.map(p=>[p,disp(ROOTS[p])])),card:`<p>Not: ${raw}. Kombinasi ini tidak cocok dengan chord yang umum dipakai, mungkin cluster atau chord dengan banyak tension. Coba lepas satu not.</p>`}}
- const nameOf=x=>{const rt=ROOTS[x.r],nm={};x.t.i.forEach(([s,d])=>nm[(x.r+s)%12]=spell(rt,s,d));return{nm,name:disp(rt)+x.t.s+(x.r!=bass?'/'+nm[bass]:'')}};
- const best=res[0],{nm,name}=nameOf(best),rt=ROOTS[best.r],t=best.t,ty=CHO.find(k=>CH[k]===t);
- const used=t.i.filter(([s])=>pcs.includes((best.r+s)%12));
+  const sug=['maj','min','sus2','sus4','dim','aug'].filter(k=>CH[k].i.some(([s])=>s%12==semi)).slice(0,3).map(k=>{const add=CH[k].i.find(([s])=>s&&s%12!=semi);return `tambah ${spell(bn,add[0],add[1])} → <b>${disp(bn)+CH[k].s}</b>`});
+  return{name:`${disp(bn)} + ${tn}`,short:`${v[2]}, ${semi} semitone${semi==7?' (power chord)':''}`,rootPc:bass,nm:{[bass]:disp(bn),[o]:tn},card:`<p>Interval <b>${v[2]}</b> (${semi} semitone). Dua not belum cukup untuk chord${semi==7?`, kecuali power chord <b>${disp(bn)}5</b>`:''}. Coba:</p><p>${sug.join('<br>')||'tambah satu not lagi.'}</p><p class="mut">Referensi telinga: ${v[4]}.</p>`}}
+ const res=matchChords(pcs,bass);
+ if(!res.length){const raw=so.map(m=>disp(ROOTS[m%12])).join(' ');return{name:'Tidak dikenali',short:raw,rootPc:-1,nm:Object.fromEntries(pcs.map(p=>[p,disp(ROOTS[p])])),card:`<p>Not: ${raw}. Kombinasi ini tidak membentuk chord yang umum, mungkin cluster. Coba lepas satu not.</p>`}}
+ const nameOf=x=>{const rt=ROOTS[x.r],nm={};x.tones.forEach(([s,d])=>nm[(x.r+s)%12]=spell(rt,s,d));return{nm,name:disp(rt)+x.s+(x.r!=bass?'/'+nm[bass]:'')}};
+ const best=res[0],{nm,name}=nameOf(best),rt=ROOTS[best.r],ty=best.k,used=[...best.tones].sort((a,b)=>a[0]-b[0]);
  let inv='Posisi dasar: root ada di paling bawah.';
- if(best.r!=bass){const dg=t.i.find(([s])=>(best.r+s)%12==bass)[1];inv=dg==3?`Inversi 1: not ke-3 (${nm[bass]}) di bawah.`:dg==5?`Inversi 2: not ke-5 (${nm[bass]}) di bawah.`:dg==7?`Inversi 3: not ke-7 (${nm[bass]}) di bawah.`:`Slash chord: bass ${nm[bass]}.`}
+ if(best.r!=bass){const dg=best.tones.find(([s])=>(best.r+s)%12==bass)[1];inv=dg==3?`Inversi 1: not ke-3 (${nm[bass]}) di bawah.`:dg==5?`Inversi 2: not ke-5 (${nm[bass]}) di bawah.`:dg==7?`Inversi 3: not ke-7 (${nm[bass]}) di bawah.`:`Slash chord: bass ${nm[bass]}.`}
+ const omTxt=best.omit.length?` Not ${best.omit.join(' dan ')} tidak dimainkan; ini wajar, terutama not ke-5 yang sering dilewati di voicing piano.`:'';
  const kp=pcOf(S.dKey),scp=SC.maj.map(s=>(kp+s)%12),deg=SC.maj.indexOf((best.r-kp+12)%12),diat=pcs.every(p=>scp.includes(p));
- const mn=t.i.some(([s,d])=>d==3&&s==3),dm=/dim|♭5/.test(t.s);let keyTxt;
+ const mn=used.some(([s,d])=>d==3&&s==3),dm=/dim|♭5/.test(best.s);let keyTxt;
  if(diat&&deg>=0)keyTxt=`Di ${disp(S.dKey)} mayor, ini chord <b>${(mn?RN[deg].toLowerCase():RN[deg])+(dm?'°':'')}</b> dengan fungsi ${FNN[FN.maj[deg]]}: ${FEELD.maj[deg].toLowerCase()}`;
- else if(/^7/.test(t.s)&&scp.includes((best.r+5)%12)){const tc=dia(S.dKey,'maj',0)[scp.indexOf((best.r+5)%12)];keyTxt=`Bukan chord diatonik di ${disp(S.dKey)} mayor. Ini dominant 7 yang menarik ke <b>${tc.sym}</b>, jadi bisa dibaca sebagai secondary dominant <b>V7/${tc.rn}</b>.`}
- else keyTxt=`Bukan chord diatonik di ${disp(S.dKey)} mayor. Bisa jadi chord pinjaman (borrowed chord) atau tanda modulasi.`;
+ else if(/^(7|9|13)/.test(best.s)&&scp.includes((best.r+5)%12)){const tc=dia(S.dKey,'maj',0)[scp.indexOf((best.r+5)%12)];keyTxt=`Bukan chord diatonik di ${disp(S.dKey)} mayor. Ini dominant yang menarik ke <b>${tc.sym}</b>, jadi bisa dibaca sebagai secondary dominant <b>V7/${tc.rn}</b>.`}
+ else keyTxt=`Bukan chord diatonik di ${disp(S.dKey)} mayor. Bisa jadi chord pinjaman (borrowed chord), warna mode lain, atau tanda modulasi.`;
  const alts=[...new Set(res.slice(1).map(x=>nameOf(x).name))].filter(n=>n!=name).slice(0,3);
- return{name,short:ty?`Rasa: ${RASA[ty][0].toLowerCase()}`:`Rumus ${used.map(([s,d])=>degLabel(s,d)).join(' – ')}`,rootPc:best.r,nm,
+ return{name,short:(ty?`Rasa: ${RASA[ty][0].toLowerCase()}`:`Rumus ${used.map(([s,d])=>degLabel(s,d)).join(' – ')}`)+(best.omit.length?` · tanpa ${best.omit.join(', ')}`:''),rootPc:best.r,nm,
   card:`<div class="tones">${used.map(([s,d])=>`<div class="tone"><b>${degLabel(s,d)}</b><span>${spell(rt,s,d)}</span><small>${s} st</small></div>`).join('')}</div>
-  <p>${inv}${best.omit?' Tanpa not ke-5, umum di voicing piano.':''}</p><p>${keyTxt}</p>${ty?`<p><b>Rasa:</b> ${RASA[ty][0].toLowerCase()}. ${RASA[ty][1]}</p>`:''}${alts.length?`<p class="mut">Not yang sama juga bisa dibaca: ${alts.join(', ')}. Not bass menentukan nama yang paling tepat.</p>`:''}`}}
+  <p>${inv}${omTxt}</p><p>${keyTxt}</p>${ty?`<p><b>Rasa:</b> ${RASA[ty][0].toLowerCase()}. ${RASA[ty][1]}</p>`:'<p>Nama ini dibentuk dari chord dasar ditambah tension (angka di dalam kurung).</p>'}${alts.length?`<p class="mut">Not yang sama juga bisa dibaca: ${alts.join(', ')}. Not bass menentukan nama yang paling tepat.</p>`:''}`}}
 let lastMs=[],prevLen=0;
 function rAna(){const a=analyze(lastMs);$('#anaT').textContent=a?`Analisis: ${a.name}`:'Analisis';$('#anaBody').innerHTML=a?a.card:'<p class="mut">Mainkan beberapa not dulu.</p>';$('#anaKey').innerHTML=chips(ROOTS,S.dKey,'dtk')}
 function onHeld(){const ms=heldList(),pcs=new Set(ms.map(m=>m%12));
@@ -558,7 +607,7 @@ function onHeld(){const ms=heldList(),pcs=new Set(ms.map(m=>m%12));
  const nm=$('#liveName'),inf=$('#liveInfo');
  if(!ms.length){nm.textContent='–';inf.innerHTML=S.target?`Coba mainkan <b>${S.target.name}</b>.`:(S.hold?'Klik tuts untuk menahan.':'Mainkan beberapa tuts bersamaan.');}
  else{const a=analyze(ms);nm.textContent=a.name;let s=a.short;
-  if(S.target){const ok=pcs.size==S.target.pcs.size&&[...pcs].every(p=>S.target.pcs.has(p));s=ok?`<span class="ok">Tepat, itu ${S.target.name}</span>`:`Target: ${S.target.name}`}
+  if(S.target){const req=S.target.req||S.target.pcs,ok=[...pcs].every(p=>S.target.pcs.has(p))&&[...req].every(p=>pcs.has(p));s=ok?`<span class="ok">Tepat, itu ${S.target.name}</span>`:`Target: ${S.target.name}`}
   inf.innerHTML=s;if(ms.length>=prevLen)lastMs=ms;$('#anaBtn').disabled=false;if($('#ana').classList.contains('open'))rAna();quizCheck(pcs)}
  prevLen=ms.length}
 $('#holdBtn').onclick=e=>{S.hold=!S.hold;e.currentTarget.setAttribute('aria-pressed',S.hold);if(!S.hold)clickHeld.clear();onHeld()};
