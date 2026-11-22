@@ -63,6 +63,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 #liveName{font:600 34px/1.05 'Cormorant Garamond',Georgia,serif;margin:4px 0 4px;min-height:1.05em}
 #liveInfo{font-size:15px;color:#c8dada;min-height:1.5em}
 #liveInfo .ok{color:#7be3a9;font-weight:600}
+.hint{font-size:13px;color:#a8cfd1;margin:10px 0 0;line-height:1.45}
 .lrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .sbtn{min-height:38px;padding:6px 12px;border-radius:4px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#e9f2f1;cursor:pointer;font-weight:600;font-size:14px}
 .sbtn:hover{border-color:rgba(255,255,255,.5)}
@@ -159,6 +160,48 @@ input[type=range]{width:150px;accent-color:var(--aqua)}
 #qFb{min-height:1.6em;font-weight:600;margin-top:14px}
 #ana{display:none;margin-bottom:34px}#ana.open{display:block}
 .anahead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:4px}
+.mat{display:grid;grid-template-columns:270px minmax(0,1fr);gap:56px}
+@media(max-width:900px){.mat{grid-template-columns:minmax(0,1fr);gap:20px}}
+.side{position:sticky;top:84px;align-self:start;max-height:calc(100vh - 100px);overflow:auto}
+@media(max-width:900px){.side{position:static;max-height:none}}
+.toc summary{display:block;cursor:pointer;font:600 22px 'Cormorant Garamond',serif;list-style:none;min-height:44px}
+.toc summary .mut{display:block;margin-top:2px}
+.toc summary::-webkit-details-marker{display:none}
+.toc summary .mut{font:500 13px Figtree,sans-serif}
+.bar{height:4px;background:var(--line);margin:6px 0 14px}.bar span{display:block;height:100%;background:var(--gold);transition:width .3s}
+.ml,.ml ol{list-style:none;margin:0;padding:0}
+.mb>span{display:block;font:600 13px Figtree,sans-serif;color:var(--mut);margin:16px 0 4px}
+.ml a{display:flex;gap:10px;align-items:baseline;padding:7px 4px;color:var(--ink);text-decoration:none;font-size:15px;line-height:1.35;border-radius:3px}
+.ml a:hover{background:var(--card2)}
+.ml .no{flex:none;width:22px;text-align:right;font:600 16px 'Cormorant Garamond',serif;color:var(--mut)}
+.ml a.done .no{color:var(--aqua)}
+.ml a.cur{font-weight:700}.ml a.cur .no{color:var(--coral)}
+.lesson{max-width:760px}
+.mk{font-size:14px;color:var(--mut);font-weight:500}
+.lt2{font-size:clamp(34px,4vw,46px);margin:6px 0 10px}
+.goal{font-size:17px;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.lbody p{font-size:17px;line-height:1.7;max-width:68ch;margin-bottom:14px}
+.tip{background:var(--card2);padding:12px 16px;border-radius:4px}
+.demos{display:flex;flex-wrap:wrap;gap:8px}
+.demo{display:flex;align-items:center;gap:10px;min-height:44px;padding:8px 14px;border:1px solid var(--line);border-radius:4px;background:transparent;cursor:pointer;font-weight:600;font-size:15px;text-align:left}
+.demo span{color:var(--coral);font-size:12px}
+.demo:hover{border-color:var(--mut)}
+.ex{margin-top:30px;border-top:1px solid var(--ink);padding-top:18px}
+.exh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}.exh h3{font-size:26px}
+.steps{list-style:none;padding:0;margin:14px 0 0}
+.steps li{display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line);color:var(--mut)}
+.steps li b{font-weight:600}
+.steps li.now{color:var(--ink)}.steps li.ok{color:var(--ink)}
+.sn{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;font-weight:700}
+.steps li.now .sn{border-color:var(--gold);color:var(--gold);border-width:2px}
+.steps li.ok .sn{background:var(--aqua);border-color:var(--aqua);color:#fff}
+.seqn{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.seqn span{min-width:30px;text-align:center;padding:2px 6px;border:1px solid var(--line);border-radius:3px;font-weight:600;font-size:14px}
+.seqn span.hit2{background:var(--aqua);border-color:var(--aqua);color:#fff}
+.okmsg{margin-top:16px;font-weight:600;color:var(--ok)}
+.more{display:inline-block;margin-top:24px;color:var(--aqua);font-weight:600;text-decoration:none}.more:hover{text-decoration:underline}
+.pn2{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:36px;padding-top:20px;border-top:1px solid var(--line)}
+.pn2 .btn:disabled{opacity:.4;cursor:default}
 footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color:var(--mut)}
 @media(prefers-reduced-motion:reduce){.wk,.bk{transition:none}}
 </style>
@@ -167,12 +210,13 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color
 
 <header class="top">
  <div class="wrap">
-  <a class="brand" href="#teori-interval" aria-label="Remuria, ke beranda">
+  <a class="brand" href="#materi" aria-label="Remuria, ke beranda">
    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 5c-4 6-3 14 3 20M24 5c4 6 3 14-3 20"/><path d="M9 25h14M10 28h12"/><path d="M13 9v15M16 8v16M19 9v15" stroke-width="1.4"/><path d="M7 5h4M21 5h4"/></svg>
    <span>Remuria</span>
   </a>
   <nav class="nav" aria-label="Menu utama">
-   <a href="#teori-interval" data-view="teori">Teori</a>
+   <a href="#materi" data-view="materi">Materi</a>
+   <a href="#teori-interval" data-view="teori">Jelajah</a>
    <a href="#aransemen" data-view="aransemen">Aransemen</a>
    <a href="#latihan" data-view="latihan">Latihan<span class="lg">&nbsp;telinga</span></a>
   </nav>
@@ -213,10 +257,11 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color
    <div id="liveName">–</div>
    <div id="liveInfo"></div>
    <div class="lrow">
-    <button class="sbtn" id="holdBtn" aria-pressed="false">Mode tahan</button>
+    <button class="sbtn" id="holdBtn" aria-pressed="false" aria-describedby="holdHint">Klik untuk tahan</button>
     <button class="sbtn" id="relBtn">Lepas semua</button>
     <button class="sbtn" id="anaBtn" disabled>Lihat analisis</button>
    </div>
+   <p class="hint" id="holdHint">Tanpa keyboard MIDI? Nyalakan "Klik untuk tahan" supaya beberapa tuts bisa ditekan bersamaan dengan klik.</p>
   </div>
  </div>
  <div class="meander" aria-hidden="true"></div>
@@ -230,6 +275,26 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:14px;color
   <div class="anahead"><h2 id="anaT" style="margin:0">Analisis</h2><button class="chip" id="anaClose">Tutup</button></div>
   <div id="anaBody"></div>
   <div class="lbl">Analisis dalam kunci mayor</div><div class="roots" id="anaKey"></div>
+ </section>
+
+ <!-- MATERI -->
+ <section class="view" id="v-materi">
+  <div class="mat">
+   <aside class="side">
+    <details class="toc" open><summary><span>Daftar materi</span><span class="mut" id="matProg"></span></summary>
+     <div class="bar"><span id="matBar"></span></div>
+     <ol class="ml" id="matList"></ol>
+    </details>
+   </aside>
+   <article class="lesson">
+    <header id="matHead"></header>
+    <div class="lbody" id="matBody"></div>
+    <div id="matDemo"></div>
+    <section class="ex" id="matEx" aria-live="polite"></section>
+    <div id="matLink"></div>
+    <nav class="pn2"><button class="btn alt" id="matPrev">← Sebelumnya</button><button class="btn" id="matNext"></button></nav>
+   </article>
+  </div>
  </section>
 
  <!-- TEORI -->
@@ -456,9 +521,9 @@ const chips=(arr,sel,attr,lab=x=>disp(x))=>arr.map(x=>`<button class="chip ${x==
 const midiOn=new Set(),kbHeld=new Set(),clickHeld=new Set();
 const heldList=()=>[...new Set([...midiOn,...kbHeld,...clickHeld])].sort((a,b)=>a-b);
 kb.addEventListener('pointerdown',e=>{const k=e.target.closest('[data-m]');if(!k)return;const m=+k.dataset.m;
- if(S.hold){if(clickHeld.has(m))clickHeld.delete(m);else{clickHeld.add(m);play([m],{d:1.4})}onHeld()}else play([m],{d:1.4})});
+ if(S.hold){if(clickHeld.has(m))clickHeld.delete(m);else{clickHeld.add(m);play([m],{d:1.4});noteOn(m)}onHeld()}else{play([m],{d:1.4});noteOn(m)}});
 const KM={a:60,w:61,s:62,e:63,d:64,f:65,t:66,g:67,y:68,h:69,u:70,j:71,k:72};
-document.addEventListener('keydown',e=>{if(e.repeat||e.ctrlKey||e.metaKey||e.altKey||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;const m=KM[e.key.toLowerCase()];if(m){play([m],{d:1.4});kbHeld.add(m);onHeld()}});
+document.addEventListener('keydown',e=>{if(e.repeat||e.ctrlKey||e.metaKey||e.altKey||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;const m=KM[e.key.toLowerCase()];if(m){play([m],{d:1.4});kbHeld.add(m);noteOn(m);onHeld()}});
 document.addEventListener('keyup',e=>{const m=KM[e.key.toLowerCase()];if(m&&kbHeld.delete(m))onHeld()});
 window.addEventListener('blur',()=>{if(kbHeld.size){kbHeld.clear();onHeld()}});
 
@@ -605,12 +670,12 @@ function rAna(){const a=analyze(lastMs);$('#anaT').textContent=a?`Analisis: ${a.
 function onHeld(){const ms=heldList(),pcs=new Set(ms.map(m=>m%12));
  kb.querySelectorAll('[data-m]').forEach(k=>k.classList.toggle('held',ms.includes(+k.dataset.m)));
  const nm=$('#liveName'),inf=$('#liveInfo');
- if(!ms.length){nm.textContent='–';inf.innerHTML=S.target?`Coba mainkan <b>${S.target.name}</b>.`:(S.hold?'Klik tuts untuk menahan.':'Mainkan beberapa tuts bersamaan.');}
+ if(!ms.length){nm.textContent='–';inf.innerHTML=S.target?`Coba mainkan <b>${S.target.name}</b>.`:(S.hold?'Klik tuts untuk menahan, klik lagi untuk melepas.':'Mainkan beberapa tuts bersamaan.');}
  else{const a=analyze(ms);nm.textContent=a.name;let s=a.short;
   if(S.target){const req=S.target.req||S.target.pcs,ok=[...pcs].every(p=>S.target.pcs.has(p))&&[...req].every(p=>pcs.has(p));s=ok?`<span class="ok">Tepat, itu ${S.target.name}</span>`:`Target: ${S.target.name}`}
-  inf.innerHTML=s;if(ms.length>=prevLen)lastMs=ms;$('#anaBtn').disabled=false;if($('#ana').classList.contains('open'))rAna();quizCheck(pcs)}
+  inf.innerHTML=s;if(ms.length>=prevLen)lastMs=ms;$('#anaBtn').disabled=false;if($('#ana').classList.contains('open'))rAna();quizCheck(pcs);matHeld(pcs,ms)}
  prevLen=ms.length}
-$('#holdBtn').onclick=e=>{S.hold=!S.hold;e.currentTarget.setAttribute('aria-pressed',S.hold);if(!S.hold)clickHeld.clear();onHeld()};
+$('#holdBtn').onclick=e=>{S.hold=!S.hold;e.currentTarget.setAttribute('aria-pressed',S.hold);$('#holdHint').textContent=S.hold?'Aktif: klik tuts untuk menahan, klik lagi untuk melepas. Matikan untuk kembali ke klik biasa.':'Tanpa keyboard MIDI? Nyalakan "Klik untuk tahan" supaya beberapa tuts bisa ditekan bersamaan dengan klik.';if(!S.hold)clickHeld.clear();onHeld()};
 $('#relBtn').onclick=()=>{clickHeld.clear();kbHeld.clear();onHeld()};
 $('#anaBtn').onclick=()=>{$('#ana').classList.add('open');rAna();$('#ana').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})};
 $('#anaClose').onclick=()=>$('#ana').classList.remove('open');
@@ -623,7 +688,7 @@ document.addEventListener('click',e=>{if(pop.classList.contains('open')&&!e.targ
 document.addEventListener('keydown',e=>{if(e.key=='Escape'&&pop.classList.contains('open')){pop.classList.remove('open');pill.setAttribute('aria-expanded',false);pill.focus()}});
 function midiStatus(txt,on,short){$('#midiSt').textContent=txt;$('#midiDot').classList.toggle('on',!!on);$('#midiShort').textContent=' · '+short}
 function onMsg(e){const[st,n,v]=e.data,c=st&0xf0;
- if(c==0x90&&v>0){if(n<LO||n>HI)setRange(88);midiOn.add(n);if(midiSnd)play([n],{d:1.3});else flash(n,0);onHeld()}
+ if(c==0x90&&v>0){if(n<LO||n>HI)setRange(88);midiOn.add(n);noteOn(n);if(midiSnd)play([n],{d:1.3});else flash(n,0);onHeld()}
  else if(c==0x80||(c==0x90&&v==0)){if(midiOn.delete(n))onHeld()}}
 $('#midiBtn').onclick=async()=>{
  if(!navigator.requestMIDIAccess){midiStatus('Browser ini belum mendukung Web MIDI. Pakai Chrome atau Edge di laptop/PC.',0,'tidak didukung');return}
@@ -652,19 +717,145 @@ $('#ivPlay').onclick=playIv;$('#chPlay').onclick=chPlay;$('#chArp').onclick=()=>
 $('#scSev').onchange=e=>{S.sev=e.target.checked;rSc()};
 $('#scPlay').onclick=()=>{const key=keyName(S.key,S.mode),b=kMid(key);play([...SC[S.mode],12].map(s=>b+s),{arp:.32,d:.9})};
 
+/* ---- Materi (kurikulum) ---- */
+const BAB=['','Fondasi','Chord','Harmoni','Aransemen','Telinga & kreativitas'];
+const sq=(...n)=>({seq:n}),cd=(r,t,o={})=>({ch:[r,t],...o});
+const LES=[
+{b:1,t:'Mengenal tuts dan nama not',g:'Bisa menemukan not apa pun di keyboard tanpa menebak.',
+body:`<p>Tuts putih diberi nama <b>C D E F G A B</b>, lalu nama itu berulang. Patokannya tuts hitam: <b>C</b> selalu tuts putih tepat di kiri kelompok <b>2 tuts hitam</b>, dan <b>F</b> tepat di kiri kelompok <b>3 tuts hitam</b>.</p><p>Dari satu C ke C berikutnya ada 12 tuts (7 putih, 5 hitam). Jarak itu disebut <b>oktaf</b>. Setiap C diberi nomor oktaf; <b>C4</b> disebut <i>middle C</i>, kira-kira di tengah keyboard 88 tuts seperti P-45. Di layar, labelnya ada di bawah setiap C.</p><p class="tip"><b>Kunci belajarnya:</b> jangan hafal tuts satu per satu. Hafalkan polanya (2 hitam, 3 hitam), lalu hitung dari C atau F.</p>`,
+demo:[{l:'Semua C di keyboard',seq:[36,48,60,72,84]},{l:'C D E F G A B C',seq:[60,62,64,65,67,69,71,72]}],
+ex:[{p:'Mainkan C sampai C berikutnya, naik, hanya tuts putih',...sq('C','D','E','F','G','A','B','C')},{p:'Temukan F, lalu G dan A di sebelah kanannya',...sq('F','G','A')}]},
+{b:1,t:'Semitone, whole tone, ♯ dan ♭',g:'Paham satuan jarak terkecil di musik dan arti tanda kres/mol.',
+body:`<p><b>Semitone</b> (setengah langkah) adalah jarak dari satu tuts ke tuts terdekat, termasuk tuts hitam. <b>Whole tone</b> (satu langkah) = 2 semitone.</p><p>Tanda <b>♯</b> (kres) menaikkan not satu semitone, <b>♭</b> (mol) menurunkan satu semitone. Jadi tuts hitam di antara C dan D bisa disebut <b>C♯</b> atau <b>D♭</b>: bunyinya sama, namanya beda (disebut <i>enharmonik</i>). Nama yang dipakai tergantung tangga nadanya, dibahas di pelajaran berikut.</p><p class="tip"><b>Perhatikan:</b> E–F dan B–C adalah semitone tanpa tuts hitam di antaranya. Ini sumber pola tangga nada mayor.</p>`,
+demo:[{l:'C → C♯ → D (2 semitone = 1 whole tone)',seq:[60,61,62]},{l:'E–F dan B–C: semitone tanpa tuts hitam',seq:[64,65,71,72]}],
+ex:[{p:'Mainkan 12 tuts berurutan dari C ke C (tangga nada kromatik)',...sq('C','C#','D','D#','E','F','F#','G','G#','A','A#','B','C')},{p:'Mainkan semitone E ke F, lalu B ke C',...sq('E','F','B','C')}]},
+{b:1,t:'Tangga nada mayor',g:'Bisa menyusun tangga nada mayor dari not mana pun.',
+body:`<p>Tangga nada mayor adalah 7 not dengan pola langkah <b>W W H W W W H</b> (W = whole tone, H = semitone). Mulai dari C, pola itu menghasilkan semua tuts putih.</p><p>Mulai dari not lain, pola yang sama membuat tuts hitam ikut terpakai: <b>G mayor</b> butuh F♯, <b>F mayor</b> butuh B♭. Setiap not diberi nomor <b>derajat</b> 1 sampai 7; nomor inilah yang nanti dipakai untuk chord dan angka Romawi.</p><p class="tip"><b>Aturan penulisan:</b> setiap huruf A–G dipakai tepat sekali. Karena itu di F mayor ditulis B♭, bukan A♯.</p>`,
+demo:[{l:'C mayor',seq:[60,62,64,65,67,69,71,72]},{l:'G mayor (ada F♯)',seq:[55,57,59,60,62,64,66,67]},{l:'F mayor (ada B♭)',seq:[53,55,57,58,60,62,64,65]}],
+ex:[{p:'Mainkan tangga nada G mayor',...sq('G','A','B','C','D','E','F#','G')},{p:'Mainkan tangga nada D mayor',...sq('D','E','F#','G','A','B','C#','D')}],link:['#teori-tangga','Jelajah › Tangga nada']},
+{b:1,t:'Interval',g:'Bisa menyebut dan memainkan interval penting, terutama terts dan kuint.',
+body:`<p><b>Interval</b> adalah jarak antara dua not. Namanya terdiri dari angka (berapa huruf yang dilewati, dihitung dari not awal) dan kualitas. Dari not 1 tangga nada mayor, interval 2, 3, 6, 7 disebut <b>mayor</b>, sedangkan 4, 5, dan oktaf disebut <b>perfect</b>. Turunkan interval mayor satu semitone, jadilah <b>minor</b>.</p><p>Empat interval terpenting untuk chord: <b>minor 3rd</b> (3 semitone), <b>major 3rd</b> (4), <b>perfect 4th</b> (5), dan <b>perfect 5th</b> (7).</p><p class="tip"><b>Latih telinga:</b> pasangkan tiap interval dengan satu lagu referensi. Daftarnya ada di Jelajah › Interval.</p>`,
+demo:[{l:'C–E: major 3rd (4 semitone)',seq:[60,64]},{l:'C–E♭: minor 3rd (3 semitone)',seq:[60,63]},{l:'C–G: perfect 5th (7 semitone)',seq:[60,67]}],
+ex:[{p:'Mainkan perfect 5th dari D (dua not bersamaan)',notes:['D','A']},{p:'Mainkan major 3rd dari E',notes:['E','G#']},{p:'Mainkan minor 3rd dari A',notes:['A','C']}],link:['#teori-interval','Jelajah › Interval']},
+{b:2,t:'Triad mayor dan minor',g:'Bisa membentuk chord mayor dan minor di kunci mana pun dari rumus.',
+body:`<p><b>Triad</b> adalah 3 not yang ditumpuk berjarak terts: <b>root</b>, <b>3rd</b>, dan <b>5th</b>.</p><p><b>Mayor</b> = major 3rd lalu minor 3rd → jarak dari root <b>0 · 4 · 7</b> semitone. <b>Minor</b> = minor 3rd lalu major 3rd → <b>0 · 3 · 7</b>. Bedanya hanya not tengah, turun satu semitone.</p><p>Cara cepat: dari root hitung <b>4 lalu 3</b> untuk mayor, <b>3 lalu 4</b> untuk minor. Mayor terdengar cerah dan stabil, minor terdengar sendu.</p>`,
+demo:[{l:'C mayor',...cd('C','maj')},{l:'C minor',...cd('C','min')},{l:'A minor',...cd('A','min')}],
+ex:[{p:'Mainkan F mayor',...cd('F','maj')},{p:'Mainkan D minor',...cd('D','min')},{p:'Mainkan E mayor',...cd('E','maj')},{p:'Mainkan B♭ mayor',...cd('Bb','maj')}],link:['#teori-chord','Jelajah › Chord & rasa']},
+{b:2,t:'Diminished, augmented, sus2, sus4',g:'Kenal empat triad lain dan rasanya.',
+body:`<p><b>Diminished</b> = dua minor 3rd (0 · 3 · 6): tegang dan tidak stabil. <b>Augmented</b> = dua major 3rd (0 · 4 · 8): terdengar melayang.</p><p><b>sus2</b> dan <b>sus4</b> mengganti terts dengan not ke-2 atau ke-4. Tanpa terts, chord ini tidak mayor maupun minor. sus4 terasa menggantung dan biasanya kembali ke mayor: Csus4 → C.</p>`,
+demo:[{l:'B diminished',...cd('B','dim')},{l:'C augmented',...cd('C','aug')},{l:'Csus4 → C: rasa "lega"',prog:[['C','sus4'],['C','maj']]}],
+ex:[{p:'Mainkan B diminished',...cd('B','dim')},{p:'Mainkan Gsus4',...cd('G','sus4')},{p:'Mainkan Dsus2',...cd('D','sus2')}]},
+{b:2,t:'Inversi dan slash chord',g:'Bisa memainkan chord dengan not bass yang berbeda.',
+body:`<p>Not yang sama bisa disusun dengan urutan berbeda. <b>Posisi dasar</b>: root di paling bawah. <b>Inversi 1</b>: terts di bawah. <b>Inversi 2</b>: kuint di bawah.</p><p>Penulisan <b>C/E</b> berarti chord C dengan not bass E. Inversi membuat perpindahan chord lebih mulus dan membuat garis bass bisa melangkah naik-turun dengan rapi.</p><p class="tip">Panel <b>Yang kamu mainkan</b> di atas otomatis membaca inversi dan slash chord.</p>`,
+demo:[{l:'C posisi dasar',...cd('C','maj')},{l:'C/E (inversi 1)',...cd('C','maj',{inv:1})},{l:'C/G (inversi 2)',...cd('C','maj',{inv:2})}],
+ex:[{p:'Mainkan C/E: E paling bawah',...cd('C','maj',{bass:'E'})},{p:'Mainkan F/A: A paling bawah',...cd('F','maj',{bass:'A'})},{p:'Mainkan G/D: D paling bawah',...cd('G','maj',{bass:'D'})}]},
+{b:2,t:'Chord 7',g:'Hafal lima jenis chord 7 dan fungsi dominant 7.',
+body:`<p>Tambahkan satu terts lagi di atas triad, jadilah <b>chord 7</b>. Lima jenis utamanya:</p><p><b>maj7</b> (mayor + major 7th, 11 semitone) · <b>7</b> atau dominant (mayor + minor 7th, 10) · <b>m7</b> (minor + minor 7th) · <b>m7♭5</b> (diminished + minor 7th) · <b>dim7</b> (diminished + diminished 7th, 9).</p><p><b>Dominant 7</b> paling penting: tegang dan ingin pindah ke chord yang 5 semitone di atasnya, misalnya G7 → C. Di piano, not ke-5 sering dilewati supaya tidak berat.</p>`,
+demo:[{l:'Cmaj7',...cd('C','maj7')},{l:'G7',...cd('G','7')},{l:'G7 → C: tegang lalu pulang',prog:[['G','7'],['C','maj']]},{l:'Dm7',...cd('D','m7')}],
+ex:[{p:'Mainkan G7',...cd('G','7')},{p:'Mainkan Cmaj7',...cd('C','maj7')},{p:'Mainkan Dm7',...cd('D','m7')},{p:'Mainkan Bm7♭5',...cd('B','m7b5')}]},
+{b:3,t:'Chord diatonik dan angka Romawi',g:'Bisa menyebut 7 chord asli di kunci mayor mana pun.',
+body:`<p>Bangun triad dari setiap not tangga nada mayor dengan pola lompat-satu. Hasilnya selalu <b>I ii iii IV V vi vii°</b>: huruf besar = mayor, kecil = minor, ° = diminished. Di C: C Dm Em F G Am Bdim.</p><p>Angka Romawi membuat progresi bisa dipindah ke kunci mana pun. I–IV–V di C adalah C–F–G, di G menjadi G–C–D. Dengan 7th polanya menjadi Imaj7 ii7 iii7 IVmaj7 V7 vi7 viiø7.</p>`,
+demo:[{l:'7 chord diatonik C mayor',prog:[['C','maj'],['D','min'],['E','min'],['F','maj'],['G','maj'],['A','min'],['B','dim']]},{l:'I–IV–V di G',prog:[['G','maj'],['C','maj'],['D','maj']]}],
+ex:[{p:'Mainkan I–IV–V di kunci G',prog:[['G','maj'],['C','maj'],['D','maj']]},{p:'Mainkan ii7–V7–Imaj7 di kunci F',prog:[['G','m7'],['C','7'],['F','maj7']]}],link:['#teori-tangga','Jelajah › Tangga nada']},
+{b:3,t:'Fungsi chord dan kadens',g:'Paham kenapa progresi terasa berangkat, tegang, lalu pulang.',
+body:`<p>Setiap chord punya fungsi. <b>Tonic</b> (I, iii, vi) stabil, terasa "rumah". <b>Subdominant</b> (ii, IV) mulai berangkat. <b>Dominant</b> (V, vii°) tegang dan ingin pulang. Musik umumnya bergerak T → S → D → T.</p><p><b>Kadens</b> adalah cara sebuah frase berakhir: <b>autentik</b> V–I (paling final), <b>plagal</b> IV–I (seperti "Amin"), <b>half cadence</b> berhenti di V (seperti koma), dan <b>deceptive</b> V–vi (kejutan, telinga "tertipu").</p>`,
+demo:[{l:'Autentik: G7 → C',prog:[['G','7'],['C','maj']]},{l:'Plagal: F → C',prog:[['F','maj'],['C','maj']]},{l:'Half cadence: C → F → G',prog:[['C','maj'],['F','maj'],['G','maj']]},{l:'Deceptive: G7 → Am',prog:[['G','7'],['A','min']]}],
+ex:[{p:'Mainkan kadens autentik di D: A7 → D',prog:[['A','7'],['D','maj']]},{p:'Mainkan kadens deceptive di C: G7 → Am',prog:[['G','7'],['A','min']]}]},
+{b:3,t:'Tangga nada minor',g:'Paham minor natural, harmonik, dan relative minor.',
+body:`<p>Setiap kunci mayor punya <b>relative minor</b> yang memakai not yang sama, mulai dari derajat 6: C mayor ↔ A minor. Pola <b>minor natural</b>: W H W W H W W.</p><p><b>Minor harmonik</b> menaikkan not ke-7 (G♯ di A minor) supaya chord V jadi mayor (E atau E7) dan tarikan pulangnya ke i lebih kuat. <b>Minor melodik</b> menaikkan not ke-6 dan ke-7 saat melodi naik.</p><p>Chord diatonik minor natural: <b>i ii° III iv v VI VII</b>.</p>`,
+demo:[{l:'A minor natural',seq:[57,59,60,62,64,65,67,69]},{l:'A minor harmonik (G♯)',seq:[57,59,60,62,64,65,68,69]},{l:'Am → Dm → E7 → Am',prog:[['A','min'],['D','min'],['E','7'],['A','min']]}],
+ex:[{p:'Mainkan A minor harmonik',...sq('A','B','C','D','E','F','G#','A')},{p:'Mainkan i–iv–V7–i di A minor',prog:[['A','min'],['D','min'],['E','7'],['A','min']]}]},
+{b:3,t:'Progresi populer dan analisis lagu',g:'Bisa membedah chord lagu dan menulisnya dalam angka Romawi.',
+body:`<p>Banyak lagu dibangun dari sedikit pola: <b>I–V–vi–IV</b>, <b>I–vi–IV–V</b>, <b>vi–IV–I–V</b>, <b>ii–V–I</b>, dan <b>IV–V–iii–vi</b> (royal road).</p><p>Cara menganalisis lagu: (1) cari kuncinya, yaitu chord yang terasa "rumah" (biasanya di awal dan akhir); (2) tulis chord-chordnya; (3) ubah ke angka Romawi; (4) tandai fungsi T, S, D. Setelah itu kamu bisa memindahkan lagu ke kunci lain dan memodifikasinya.</p>`,
+demo:[{l:'I–V–vi–IV di C',prog:[['C','maj'],['G','maj'],['A','min'],['F','maj']]}],
+ex:[{p:'Mainkan I–V–vi–IV di kunci G',prog:[['G','maj'],['D','maj'],['E','min'],['C','maj']]}],link:['#aransemen','Aransemen']},
+{b:4,t:'Voice leading',g:'Bisa pindah chord dengan gerakan jari sesedikit mungkin.',
+body:`<p>Saat pindah chord, gerakkan jari sesedikit mungkin. Tiga prinsip: (1) pertahankan not yang sama (<i>common tone</i>); (2) not lain bergerak ke not terdekat; (3) biarkan bass yang melompat.</p><p>Contoh C → F: C tetap, E naik ke F, G naik ke A, jadi F/C. Hasilnya terdengar menyambung dan tangan tidak lompat-lompat.</p>`,
+demo:[{l:'C → F/C → G/B → C',voic:[[60,64,67],[60,65,69],[59,62,67],[60,64,67]]}],
+ex:[{p:'Dari C, geser ke F/C (C tetap di bawah)',...cd('F','maj',{bass:'C'})},{p:'Lanjut ke G/B (B di bawah)',...cd('G','maj',{bass:'B'})},{p:'Kembali ke C',...cd('C','maj',{bass:'C'})}],link:['#aransemen','Aransemen (nyalakan Voice leading)']},
+{b:4,t:'Pola tangan kiri',g:'Punya beberapa pola iringan tangan kiri yang siap dipakai.',
+body:`<p>Tangan kiri memberi fondasi dan ritme. Urutan latihannya: (1) <b>root saja</b>; (2) <b>root–5th</b>; (3) <b>oktaf</b>; (4) <b>broken chord 1–5–8–5</b>; (5) <b>Alberti bass 1–5–3–5</b> (gaya klasik); (6) <b>arpeggio 1–5–8–10</b> (gaya ballad).</p><p>Pilih satu pola, mainkan dengan progresi I–V–vi–IV sampai otomatis, baru tambah tangan kanan.</p>`,
+demo:[{l:'Root–5th',seq:[48,55,48,55]},{l:'Broken chord 1–5–8–5',seq:[36,43,48,43]},{l:'Alberti bass 1–5–3–5',seq:[48,55,52,55,48,55,52,55]},{l:'Arpeggio ballad 1–5–8–10',seq:[36,43,48,52]}],
+ex:[{p:'Mainkan pola 1–5–8–5 di C (C G C G)',...sq('C','G','C','G')},{p:'Mainkan Alberti bass di F (F C A C)',...sq('F','C','A','C')}]},
+{b:4,t:'Extended chord dan warna',g:'Bisa menambah warna dengan add9, 6/9, 9, 13, dan ♯11.',
+body:`<p>Not di atas 7th disebut <b>tension</b>: 9, 11, 13 (sama dengan 2, 4, 6 satu oktaf lebih tinggi). <b>add9</b> dan <b>6/9</b> menambah warna tanpa 7th. <b>maj9</b> dan <b>m9</b> terdengar lembut (neo-soul, city pop). <b>13</b> terdengar jazzy. <b>♯11</b> di chord mayor memberi warna Lydian yang melayang.</p><p class="tip">Di piano, lewati not ke-5 (kadang juga root, kalau bass sudah memainkannya) supaya chord tidak berat.</p>`,
+demo:[{l:'Cadd9',...cd('C','add9')},{l:'Cmaj9',...cd('C','maj9')},{l:'Cadd♯11',...cd('C','add#11')},{l:'G13',...cd('G','13')}],
+ex:[{p:'Mainkan Cadd9',...cd('C','add9')},{p:'Mainkan Dm9',...cd('D','m9')},{p:'Mainkan Fmaj7♯11',...cd('F','maj7#11')}],link:['#teori-chord','Jelajah › Chord & rasa']},
+{b:4,t:'Reharmonisasi',g:'Bisa mengganti chord supaya lagu terdengar lebih kaya.',
+body:`<p>Reharmonisasi berarti mengganti chord tanpa mengubah melodi. Empat teknik dasar:</p><p>(1) <b>Substitusi fungsi</b>: I ↔ vi atau iii, IV ↔ ii. (2) <b>Secondary dominant</b>: sisipkan V7 dari chord tujuan, misalnya A7 sebelum Dm. (3) <b>Borrowed chord</b>: pinjam dari kunci minor paralel, misalnya iv (Fm di C), ♭VI, ♭VII. (4) <b>Tritone substitution</b>: ganti G7 dengan D♭7 menuju C.</p>`,
+demo:[{l:'Asli: C – Am – Dm – G7 – C',prog:[['C','maj'],['A','min'],['D','min'],['G','7'],['C','maj']]},{l:'Secondary dominant: C – A7 – Dm – G7 – C',prog:[['C','maj'],['A','7'],['D','min'],['G','7'],['C','maj']]},{l:'Borrowed: C – F – Fm – C',prog:[['C','maj'],['F','maj'],['F','min'],['C','maj']]},{l:'Tritone sub: Dm7 – D♭7 – Cmaj7',prog:[['D','m7'],['Db','7'],['C','maj7']]}],
+ex:[{p:'Mainkan C – A7 – Dm – G7 – C',prog:[['C','maj'],['A','7'],['D','min'],['G','7'],['C','maj']]},{p:'Mainkan iv pinjaman di C: Fm',...cd('F','min')}]},
+{b:5,t:'Melatih telinga',g:'Punya rutinitas latihan telinga yang jelas.',
+body:`<p>Telinga dilatih sedikit demi sedikit setiap hari: (1) <b>interval</b> dengan lagu referensi; (2) bedakan <b>mayor vs minor</b>, lalu jenis chord 7; (3) dengarkan <b>not bass</b> sebuah lagu (biasanya root chord) dan cari di tuts; (4) <b>transkripsi</b> melodi pendek tanpa melihat partitur; (5) tebak <b>fungsi</b>: apakah chord ini terasa rumah (T) atau tegang (D)?</p><p>Pakai menu Latihan telinga 5–10 menit sehari. Sebelum menjawab, nyanyikan dulu dalam hati.</p>`,
+demo:[],ex:[],link:['#latihan','Latihan telinga']},
+{b:5,t:'Membuat melodi dari chord',g:'Bisa membuat melodi pendek yang cocok dengan chord.',
+body:`<p>Melodi yang enak biasanya menapak di <b>chord tone</b> (1, 3, 5 dari chord yang sedang berbunyi) pada ketukan kuat, lalu memakai not tangga nada lain sebagai penghubung di ketukan lemah.</p><p>Buat <b>motif</b> 3–5 not, ulangi, lalu variasikan: naikkan, balik arah, atau ubah ritmenya. Akhiri frase di not yang stabil, terutama root atau terts dari chord I.</p>`,
+demo:[{l:'Chord tone C mayor',seq:[60,64,67,72]},{l:'Motif contoh di C',seq:[67,64,65,67,72,71,67]}],
+ex:[{p:'Mainkan chord tone F mayor satu per satu',...sq('F','A','C')},{p:'Mainkan chord tone G7 satu per satu',...sq('G','B','D','F')}]},
+{b:5,t:'Mode: warna tangga nada',g:'Kenal 4 mode yang paling berguna dan rasanya.',
+body:`<p><b>Mode</b> adalah tangga nada mayor yang dimulai dari derajat lain. Empat yang paling berguna:</p><p><b>Dorian</b>: minor dengan 6 mayor, sendu tapi groovy (funk, jazz). <b>Mixolydian</b>: mayor dengan ♭7, santai dan bluesy (rock, blues). <b>Lydian</b>: mayor dengan ♯4, melayang dan ajaib (film fantasi). <b>Phrygian</b>: minor dengan ♭2, gelap (flamenco, metal).</p><p class="tip">Cara cepat mengingat: bandingkan dengan mayor atau minor biasa, lalu perhatikan satu not pembedanya.</p>`,
+demo:[{l:'D Dorian',seq:[62,64,65,67,69,71,72,74]},{l:'G Mixolydian',seq:[55,57,59,60,62,64,65,67]},{l:'F Lydian',seq:[53,55,57,59,60,62,64,65]},{l:'E Phrygian',seq:[64,65,67,69,71,72,74,76]}],
+ex:[{p:'Mainkan C Lydian (ada F♯)',...sq('C','D','E','F#','G','A','B','C')}]},
+{b:5,t:'Peta penguasaan',g:'Tahu apa yang harus dikuasai dan cara latihannya.',
+body:`<p>Tanda kamu sudah menguasai dasar-dasarnya:</p><p>· Bisa memainkan triad mayor dan minor di 12 kunci tanpa melihat rumus.<br>· Bisa memainkan chord 7 (maj7, 7, m7) di 12 kunci.<br>· Bisa menganalisis lagu ke angka Romawi.<br>· Bisa mengiringi lagu dengan pola tangan kiri sambil membaca chord.<br>· Skor latihan telinga level Sedang di atas 80%.<br>· Bisa membuat aransemen 8 birama sendiri dengan voice leading.</p><p><b>Rutinitas harian 30–45 menit:</b> 10 menit tangga nada dan chord (ganti kunci tiap minggu), 10 menit latihan telinga, 15 menit analisis lagu dan aransemen, 5–10 menit improvisasi bebas.</p>`,
+demo:[],ex:[]}];
+LES.forEach((l,i)=>l.id=i+1);
+let DONE=new Set();try{DONE=new Set(JSON.parse(localStorage.getItem('rm-done')||'[]'))}catch(e){}
+const saveDone=()=>{try{localStorage.setItem('rm-done',JSON.stringify([...DONE]))}catch(e){}};
+function chordMs(r,t,inv=0){const T=CH[t],p=pcOf(r);let b=p>=5?48+p:60+p,ms=T.i.map(([s])=>b+s);for(let k=0;k<inv;k++)ms.push(ms.shift()+12);return ms}
+function mkCh(r,t,bass,p){const T=CH[t],strict=T.i.length<4,info=tInfo(T);return{kind:'ch',p,name:disp(r)+T.s+(bass?'/'+disp(bass):''),pcs:new Set(info.map(x=>(pcOf(r)+x.pc)%12)),req:new Set(info.filter(x=>strict||!x.opt).map(x=>(pcOf(r)+x.pc)%12)),bass:bass?pcOf(bass):null}}
+function steps(L){return(L.ex||[]).flatMap(e=>e.prog?e.prog.map(([r,t],i)=>mkCh(r,t,null,`${e.p} · chord ${i+1} dari ${e.prog.length}`)):e.seq?[{kind:'seq',p:e.p,name:e.seq.map(disp).join(' '),seq:e.seq.map(pcOf),names:e.seq.map(disp)}]:e.notes?[{kind:'ch',p:e.p,name:e.notes.map(disp).join(' + '),pcs:new Set(e.notes.map(pcOf)),req:new Set(e.notes.map(pcOf)),bass:null}]:[mkCh(e.ch[0],e.ch[1],e.bass,e.p)])}
+const M={i:0,steps:[],st:0,si:0,lock:false};
+try{const v=+localStorage.getItem('rm-les');if(v>=1&&v<=LES.length)M.i=v-1}catch(e){}
+function rMat(){const L=LES[M.i];M.steps=steps(L);M.st=0;M.si=0;M.lock=false;try{localStorage.setItem('rm-les',L.id)}catch(e){}
+ const n=DONE.size;$('#matProg').textContent=`${n} dari ${LES.length} pelajaran selesai`;$('#matBar').style.width=(n/LES.length*100)+'%';
+ $('#matList').innerHTML=BAB.slice(1).map((b,bi)=>`<li class="mb"><span>Bab ${bi+1} · ${b}</span><ol>${LES.filter(x=>x.b==bi+1).map(x=>`<li><a href="#materi-${x.id}" class="${x.id==L.id?'cur':''} ${DONE.has(x.id)?'done':''}"><span class="no">${DONE.has(x.id)?'✓':x.id}</span>${x.t}</a></li>`).join('')}</ol></li>`).join('');
+ $('#matHead').innerHTML=`<div class="mk">Bab ${L.b} · ${BAB[L.b]} · Pelajaran ${L.id} dari ${LES.length}</div><h2 class="lt2">${L.t}</h2><p class="goal"><b>Tujuan:</b> ${L.g}</p>`;
+ $('#matBody').innerHTML=L.body;
+ $('#matDemo').innerHTML=L.demo.length?`<div class="lbl">Dengar dan lihat di keyboard</div><div class="demos">${L.demo.map((d,i)=>`<button class="demo" data-demo="${i}"><span aria-hidden="true">▶</span>${d.l}</button>`).join('')}</div>`:'';
+ $('#matLink').innerHTML=L.link?`<a class="more" href="${L.link[0]}">Jelajahi lebih jauh: ${L.link[1]} →</a>`:'';
+ $('#matPrev').disabled=M.i==0;$('#matNext').textContent=M.i<LES.length-1?`Berikutnya: ${LES[M.i+1].t} →`:'Selesai';
+ rSteps();$('#ctx').textContent=`Materi · Bab ${L.b} · ${BAB[L.b]}`;
+ const s=M.steps[0];setKb({});if(s){big(s.name,s.p);setTarget()}else big(L.t,L.g)}
+function setTarget(){const s=M.steps[M.st];S.target=s&&s.kind=='ch'?{name:s.name,pcs:s.pcs,req:s.req}:null}
+function rSteps(){const L=LES[M.i],box=$('#matEx');
+ if(!M.steps.length){box.innerHTML=`<div class="exh"><h3>Selesai membaca?</h3></div><button class="btn" id="markDone">${DONE.has(L.id)?'Sudah ditandai selesai ✓':'Tandai selesai'}</button>`;return}
+ const all=M.st>=M.steps.length;
+ box.innerHTML=`<div class="exh"><h3>Coba di keyboardmu</h3><span class="mut">${Math.min(M.st,M.steps.length)} dari ${M.steps.length}</span></div><p class="mut" style="font-size:15px">Pakai keyboard MIDI, keyboard laptop, atau aktifkan "Klik untuk tahan" di panel atas. Langkah berikutnya terbuka otomatis saat jawabanmu tepat.</p><ol class="steps">${M.steps.map((s,i)=>`<li class="${i<M.st?'ok':i==M.st?'now':''}"><span class="sn">${i<M.st?'✓':i+1}</span><div><b>${s.p}</b>${s.kind=='seq'?`<div class="seqn">${s.names.map((n,j)=>`<span class="${i<M.st||(i==M.st&&j<M.si)?'hit2':''}">${n}</span>`).join('')}</div>`:`<div class="mut">${s.name}${s.bass!=null?' · bass '+disp(ROOTS[s.bass]):''}</div>`}</div></li>`).join('')}</ol>${all?`<p class="okmsg">Pelajaran selesai. ${M.i<LES.length-1?'Lanjut ke pelajaran berikutnya, atau ulangi untuk memperkuat.':'Kamu sudah menyelesaikan semua materi.'}</p><button class="btn alt" id="redo">Ulangi latihan</button>`:''}`}
+function stepPass(){const L=LES[M.i];M.lock=true;M.st++;M.si=0;rSteps();
+ if(M.st>=M.steps.length){DONE.add(L.id);saveDone();S.target=null;big('Pelajaran selesai',`${L.t} sudah kamu kuasai di level dasar.`);$('#matProg').textContent=`${DONE.size} dari ${LES.length} pelajaran selesai`;$('#matBar').style.width=(DONE.size/LES.length*100)+'%';$$('#matList a')[M.i]?.classList.add('done');M.lock=false;return}
+ const s=M.steps[M.st];setTimeout(()=>{setTarget();big(s.name,s.p);M.lock=false;onHeld()},650)}
+function matHeld(pcs,ms){if(S.view!='materi'||M.lock)return;const s=M.steps[M.st];if(!s||s.kind!='ch'||!ms.length)return;
+ const ok=[...pcs].every(p=>s.pcs.has(p))&&[...s.req].every(p=>pcs.has(p))&&(s.bass==null||ms[0]%12==s.bass);if(ok)stepPass()}
+function noteOn(m){if(S.view!='materi'||M.lock)return;const s=M.steps[M.st];if(!s||s.kind!='seq')return;const pc=m%12;
+ if(pc==s.seq[M.si])M.si++;else M.si=pc==s.seq[0]?1:0;if(M.si>=s.seq.length)stepPass();else rSteps()}
+function playDemo(d){if(d.ch){const ms=chordMs(d.ch[0],d.ch[1],d.inv||0),nm=CH[d.ch[1]].i.map(([s,dd])=>spell(d.ch[0],s,dd)),map={};ms.forEach((m,j)=>{const k=CH[d.ch[1]].i.findIndex(([s])=>(pcOf(d.ch[0])+s)%12==m%12);map[m]={c:m%12==pcOf(d.ch[0])?'root':'on',l:nm[k]}});setKb(map);play(ms,{arp:.015});big(d.l,'')}
+ else if(d.seq){const map={};d.seq.forEach((m,j)=>map[m]={c:j?'on':'root',l:disp(ROOTS[m%12])});setKb(map);play(d.seq,{arp:.32,d:.9});big(d.l,'')}
+ else if(d.voic||d.prog){const list=d.voic?d.voic.map(v=>({ms:v,r:null})):d.prog.map(([r,t])=>({ms:chordMs(r,t),r,t}));let prev=null;
+  list.forEach((c,i)=>setTimeout(()=>{const ns=d.voic?c.ms:nearest(prev,c.ms);prev=ns;const map={};ns.forEach(m=>map[m]={c:'on',l:disp(ROOTS[m%12])});if(c.r)map[48+pcOf(c.r)]={c:'root',l:disp(c.r)};setKb(map);play(c.r?[48+pcOf(c.r),...ns]:ns,{arp:.012,d:1.4});big(d.l,c.r?`${disp(c.r)+CH[c.t].s}`:'')},i*1200))}}
+document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;
+ if(t.dataset.demo){playDemo(LES[M.i].demo[+t.dataset.demo])}
+ else if(t.id=='markDone'){DONE.add(LES[M.i].id);saveDone();rMat()}
+ else if(t.id=='redo'){rMat()}});
+$('#matPrev').onclick=()=>{if(M.i>0)location.hash='materi-'+LES[M.i-1].id};
+$('#matNext').onclick=()=>{if(M.i<LES.length-1)location.hash='materi-'+LES[M.i+1].id;else location.hash='materi-'+LES[LES.length-1].id};
+
 /* ---- routing ---- */
 const SUBN={interval:'Interval',chord:'Chord & rasa',tangga:'Tangga nada'},SUBR={interval:rIv,chord:rCh,tangga:rSc};
-function route(){const h=location.hash.slice(1);let v='teori',sub=S.sub;
- if(h=='aransemen'||h=='latihan')v=h;else if(h.startsWith('teori-')&&SUBR[h.slice(6)])sub=h.slice(6);
+function route(){const h=location.hash.slice(1);let v='materi',sub=S.sub;
+ if(h=='aransemen'||h=='latihan')v=h;else if(h.startsWith('teori')){v='teori';if(SUBR[h.slice(6)])sub=h.slice(6)}
+ else if(h.startsWith('materi-')){const n=+h.slice(7);if(n>=1&&n<=LES.length)M.i=n-1}
  S.view=v;S.sub=sub;if(pT)pStop();S.target=null;
  $$('.nav a').forEach(a=>{if(a.dataset.view==v)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
- $('.nav a[data-view=teori]').setAttribute('href','#teori-'+sub);
+ $('.nav a[data-view=teori]').setAttribute('href','#teori-'+sub);$('.nav a[data-view=materi]').setAttribute('href','#materi-'+LES[M.i].id);
  $$('.view').forEach(s=>s.classList.toggle('act',s.id=='v-'+v));
- if(v=='teori'){$$('.seg button').forEach(b=>b.setAttribute('aria-selected',b.dataset.sub==sub));$$('.sub').forEach(s=>s.classList.toggle('act',s.id=='s-'+sub));$('#ctx').textContent='Teori · '+SUBN[sub];SUBR[sub]()}
+ if(v=='teori'){$$('.seg button').forEach(b=>b.setAttribute('aria-selected',b.dataset.sub==sub));$$('.sub').forEach(s=>s.classList.toggle('act',s.id=='s-'+sub));$('#ctx').textContent='Jelajah · '+SUBN[sub];SUBR[sub]()}
+ else if(v=='materi'){rMat();if(h.startsWith('materi-'))window.scrollTo({top:0})}
  else if(v=='aransemen'){$('#ctx').textContent='Aransemen';rPr()}
  else{$('#ctx').textContent='Latihan telinga';rQ();setKb({});big('Latihan telinga','Tekan "Soal baru" untuk mulai. Jawab dengan klik, atau mainkan jawabannya di keyboard.')}
  onHeld()}
 const center=()=>{const w=$('.kbwrap'),c=keyEl(60);if(c&&w.scrollWidth>w.clientWidth)w.scrollLeft=c.offsetLeft-w.clientWidth/2+60};
+if(matchMedia('(max-width:900px)').matches)$('.toc').removeAttribute('open');
 buildKb();window.addEventListener('hashchange',route);route();center();window.addEventListener('resize',center);
 }
 </script>
